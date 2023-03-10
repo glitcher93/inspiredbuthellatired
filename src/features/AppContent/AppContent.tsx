@@ -1,6 +1,7 @@
 import { Menu, ShoppingCartOutlined } from "@mui/icons-material";
 import { AppBar, Drawer, IconButton, Popover, Theme, Toolbar, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import clsx from "clsx";
 import { MouseEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Route, Routes } from "react-router-dom";
@@ -64,6 +65,9 @@ const useStyles = makeStyles((theme: Theme) => ({
             },
             marginLeft: "1.5rem"
         }
+    },
+    activeLink: {
+        color: "#0000FF"
     },
     nav: {
         display: "flex",
@@ -152,7 +156,7 @@ const AppContent = () => {
                             >
                                 <NavLink
                                 to="/about-me"
-                                className={classes.link}
+                                className={({ isActive }) => isActive ? clsx(classes.activeLink, classes.link) : classes.link}
                                 >
                                     <Typography>
                                         About Me
@@ -160,7 +164,7 @@ const AppContent = () => {
                                 </NavLink>
                                 <NavLink
                                 to="/products"
-                                className={classes.link}
+                                className={({ isActive }) => isActive ? clsx(classes.activeLink, classes.link) : classes.link}
                                 >
                                     <Typography>
                                         Products
@@ -168,7 +172,7 @@ const AppContent = () => {
                                 </NavLink>
                                 <NavLink
                                 to="/articles"
-                                className={classes.link}
+                                className={({ isActive }) => isActive ? clsx(classes.activeLink, classes.link) : classes.link}
                                 >
                                     <Typography>
                                         Articles
@@ -192,7 +196,7 @@ const AppContent = () => {
                             >
                                 <NavLink
                                 to="/about-me"
-                                className={classes.link}
+                                className={({ isActive }) => isActive ? clsx(classes.activeLink, classes.link) : classes.link}
                                 >
                                     <Typography>
                                         About Me
@@ -200,7 +204,7 @@ const AppContent = () => {
                                 </NavLink>
                                 <NavLink
                                 to="/products"
-                                className={classes.link}
+                                className={({ isActive }) => isActive ? clsx(classes.activeLink, classes.link) : classes.link}
                                 >
                                     <Typography>
                                         Products
@@ -208,7 +212,7 @@ const AppContent = () => {
                                 </NavLink>
                                 <NavLink
                                 to="/articles"
-                                className={classes.link}
+                                className={({ isActive }) => isActive ? clsx(classes.activeLink, classes.link) : classes.link}
                                 >
                                     <Typography>
                                         Articles
