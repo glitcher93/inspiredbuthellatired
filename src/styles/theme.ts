@@ -1,10 +1,4 @@
 import { createTheme } from "@mui/material";
-import { TypographyVariantsOptions } from "@mui/material";
-
-interface CustomTypog extends TypographyVariantsOptions {
-    a: TypographyVariantsOptions
-    b: TypographyVariantsOptions
-}
 
 const theme = createTheme({
     breakpoints: {
@@ -17,16 +11,28 @@ const theme = createTheme({
         }
     },
     typography: {
-        a: {
-            fontFamily: "Nunito Sans, sans-serif",
-            fontSize: 16,
-            fontWeightMedium: 600
-        },
-        b: {
+        fontFamily: "Nunito Sans, sans-serif",
+        fontWeightMedium: 600,
+        fontSize: 16,
+        h1: {
             fontFamily: "Abel, sans-serif",
-            fontSize: 16
+        },
+        h2: {
+            fontFamily: "Abel, sans-serif"
+        },
+        h3: {
+            fontFamily: "Abel, sans-serif"
+        },
+        h4: {
+            fontFamily: "Abel, sans-serif"
+        },
+        h5: {
+            fontFamily: "Abel, sans-serif"
+        },
+        h6: {
+            fontFamily: "Abel, sans-serif"
         }
-    } as CustomTypog
+    }
 })
 
 export default theme;
