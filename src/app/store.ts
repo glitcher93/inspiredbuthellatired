@@ -12,7 +12,7 @@ const store = configureStore({
         return getDefaultMiddleware({
             serializableCheck: {
                 ignoredActions: ['appContent/setAnchor'],
-                ignoredPaths: ['appContent.anchor']
+                ignoredPaths: ['appContent.anchorEl']
             }
         })
     }
