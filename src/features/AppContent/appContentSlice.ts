@@ -3,24 +3,22 @@ import { RootState } from "../../utils/interfaces";
 
 const initialState = {
     drawerOpen: false,
-    anchor: null
+    anchor: false,
+    anchorEl: null
 }
 
 const appContentSlice = createSlice({
     name: "appContent",
     initialState,
     reducers: {
-        toggleDrawerState: (state) => {
-            if (state.drawerOpen === false) {
-                state.drawerOpen = !state.drawerOpen;
-            }
-            if (state.drawerOpen === true) {
-                state.drawerOpen = !state.drawerOpen;
-            }
+        toggleDrawerOpen: (state, action) => {
+            const { payload } = action;
+            state.drawerOpen = payload;
         },
         setAnchor: (state, action) => {
-            const { payload } = action;
-            state.anchor = payload;
+            const { anchor, anchorEl } = action.payload;
+            state.anchor = anchor;
+            state.anchorEl = anchorEl;
         },
     }
 });
@@ -29,6 +27,8 @@ export const selectDrawerOpen = (state: RootState) => state.appContent.drawerOpe
 
 export const selectAnchor = (state: RootState) => state.appContent.anchor;
 
-export const { toggleDrawerState, setAnchor } = appContentSlice.actions;
+export const selectAnchorEl = (state: RootState) => state.appContent.anchorEl;
+
+export const { toggleDrawerOpen, setAnchor } = appContentSlice.actions;
 
 export default appContentSlice.reducer;

@@ -6,10 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Route, Routes } from "react-router-dom";
 import Layout from "../../components/Layout";
 import { AppDispatch } from "../../utils/interfaces";
-import { selectAnchor, selectDrawerOpen, setAnchor, toggleDrawerState } from "./appContentSlice";
+import { selectAnchor, selectAnchorEl, selectDrawerOpen, setAnchor, toggleDrawerOpen } from "./appContentSlice";
 
-const drawerWidth = 250;
-const drawerWidthMed = 350;
+const drawerWidth = "75%";
+const drawerWidthMed = "50%";
 
 const useStyles = makeStyles((theme: Theme) => ({
     drawer: {
@@ -29,6 +29,15 @@ const useStyles = makeStyles((theme: Theme) => ({
         alignItems: "center",
         justifyContent: "space-between",
         padding: "1rem",
+        width: "100%",
+        [theme.breakpoints.up('md')]: {
+            padding: "1rem 2.25rem"
+        },
+        [theme.breakpoints.up('lg')]: {
+            padding: "1rem 0",
+            margin: "0 auto",
+            maxWidth: "85%",
+        }
     },
     menuFlex: {
         display: "flex",
@@ -37,8 +46,31 @@ const useStyles = makeStyles((theme: Theme) => ({
     popover: {
         display: "flex",
         flexDirection: 'column',
-        width: `${theme.typography.pxToRem(150)}`,
-        height: `${theme.typography.pxToRem(75)}`
+        padding: "1rem 3rem 0.5rem 0.5rem",
+        [theme.breakpoints.up('md')]: {
+            display: "none"
+        }
+    },
+    link: {
+        textDecoration: "none",
+        color: "#000",
+        transition: "color 0.3s ease-in-out",
+        '&:hover': {
+            color: "#0000FF"
+        },
+        [theme.breakpoints.up('md')]: {
+            '&:first-of-type': {
+                marginLeft: 0
+            },
+            marginLeft: "1.5rem"
+        }
+    },
+    nav: {
+        display: "flex",
+        marginLeft: "1.5rem",
+        [theme.breakpoints.down('md')]: {
+            display: "none"
+        }
     }
 }), {index: 1});
 
@@ -50,22 +82,26 @@ const AppContent = () => {
 
     const drawerState = useSelector(selectDrawerOpen);
 
-    const anchor = useSelector(selectAnchor);
+    const anchor = useSelector(selectAnchorEl);
 
-    const open = Boolean(anchor);
+    const open = useSelector(selectAnchor);
 
-    const toggleDrawer = () => {
-        dispatch(toggleDrawerState());
+    const openDrawer = () => {
+        dispatch(toggleDrawerOpen(true));
+    }
+
+    const closeDrawer = () => {
+        dispatch(toggleDrawerOpen(false));
     }
 
     const handleOpen = (e: MouseEvent<HTMLButtonElement>) => {
-        dispatch(setAnchor(e.currentTarget));
+        dispatch(setAnchor({anchor: true, anchorEl: e.currentTarget}));
     }
 
     const handleClose = (e: MouseEvent<HTMLButtonElement>) => {
-        dispatch(setAnchor(null));
+        e.stopPropagation();
+        dispatch(setAnchor({anchor: false, anchorEl: null}));
     }
-        
 
     return ( 
         <>
@@ -76,6 +112,7 @@ const AppContent = () => {
             sx={(theme) => ({
 
             })}
+            
             >
                 <Toolbar
                 disableGutters
@@ -91,6 +128,7 @@ const AppContent = () => {
                                     display: "none"
                                 }
                             })}
+                            role="button"
                             onClick={handleOpen}
                             >
                                 <Menu 
@@ -114,18 +152,27 @@ const AppContent = () => {
                             >
                                 <NavLink
                                 to="/about-me"
+                                className={classes.link}
                                 >
-                                    About Me
+                                    <Typography>
+                                        About Me
+                                    </Typography>
                                 </NavLink>
                                 <NavLink
                                 to="/products"
+                                className={classes.link}
                                 >
-                                    Products
+                                    <Typography>
+                                        Products
+                                    </Typography>
                                 </NavLink>
                                 <NavLink
                                 to="/articles"
+                                className={classes.link}
                                 >
-                                    
+                                    <Typography>
+                                        Articles
+                                    </Typography>
                                 </NavLink>
                             </Popover>
                             <Typography 
@@ -140,22 +187,50 @@ const AppContent = () => {
                             >
                                 IBHT
                             </Typography>
+                            <nav
+                            className={classes.nav}
+                            >
+                                <NavLink
+                                to="/about-me"
+                                className={classes.link}
+                                >
+                                    <Typography>
+                                        About Me
+                                    </Typography>
+                                </NavLink>
+                                <NavLink
+                                to="/products"
+                                className={classes.link}
+                                >
+                                    <Typography>
+                                        Products
+                                    </Typography>
+                                </NavLink>
+                                <NavLink
+                                to="/articles"
+                                className={classes.link}
+                                >
+                                    <Typography>
+                                        Articles
+                                    </Typography>
+                                </NavLink>
+                            </nav>
                         </div>
-                        
                     </div>
-                    <IconButton
-                    role="button"
-                    aria-label="cart"
-                    
-                    onClick={toggleDrawer}
-                    >
-                        <ShoppingCartOutlined 
-                        sx={(theme) => ({
-                            color: "#000",
-                            fontSize: "3rem"
-                        })}
-                        />
-                    </IconButton>
+                    <div>
+                        <IconButton
+                        role="button"
+                        aria-label="cart"
+                        onClick={openDrawer}
+                        >
+                            <ShoppingCartOutlined 
+                            sx={(theme) => ({
+                                color: "#000",
+                                fontSize: "3rem"
+                            })}
+                            />
+                        </IconButton>
+                    </div>
                 </Toolbar>
             </AppBar>
             <Layout>
@@ -173,7 +248,7 @@ const AppContent = () => {
             variant="temporary"
             anchor="right"
             open={drawerState}
-            onClose={toggleDrawer}
+            onClose={closeDrawer}
             classes={{
                 paper: classes.drawerPaper
             }}
