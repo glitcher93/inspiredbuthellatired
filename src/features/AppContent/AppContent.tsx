@@ -1,16 +1,21 @@
 import { Menu, ShoppingCartOutlined } from "@mui/icons-material";
-import { AppBar, Drawer, IconButton, Popover, Theme, Toolbar, Typography } from "@mui/material";
+import { AppBar, Drawer, IconButton, Link, Popover, Theme, Toolbar, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import clsx from "clsx";
-import { MouseEvent } from "react";
+import { MouseEvent, lazy, Suspense } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Route, Routes } from "react-router-dom";
 import Layout from "../../components/Layout";
 import { AppDispatch } from "../../utils/interfaces";
 import { selectAnchor, selectAnchorEl, selectDrawerOpen, setAnchor, toggleDrawerOpen } from "./appContentSlice";
+import Logo from "../../assets/logo/logo-1.webp";
 
 const drawerWidth = "75%";
 const drawerWidthMed = "50%";
+
+const Landing = lazy(() => import("../../pages/Landing"));
+const AboutMe = lazy(() => import("../../pages/AboutMe"));
+const Products = lazy(() => import("../../pages/Products"));
 
 const useStyles = makeStyles((theme: Theme) => ({
     drawer: {
@@ -63,7 +68,7 @@ const useStyles = makeStyles((theme: Theme) => ({
             '&:first-of-type': {
                 marginLeft: 0
             },
-            marginLeft: "1.5rem"
+            marginLeft: "1.5rem",
         }
     },
     activeLink: {
@@ -75,6 +80,10 @@ const useStyles = makeStyles((theme: Theme) => ({
         [theme.breakpoints.down('md')]: {
             display: "none"
         }
+    },
+    logo: {
+        width: `${theme.typography.pxToRem(50)}`,
+        borderRadius: "50%",
     }
 }), {index: 1});
 
@@ -114,9 +123,7 @@ const AppContent = () => {
             color="transparent"
             position="static"
             sx={(theme) => ({
-
             })}
-            
             >
                 <Toolbar
                 disableGutters
@@ -170,27 +177,16 @@ const AppContent = () => {
                                         Products
                                     </Typography>
                                 </NavLink>
-                                <NavLink
-                                to="/articles"
-                                className={({ isActive }) => isActive ? clsx(classes.activeLink, classes.link) : classes.link}
-                                >
-                                    <Typography>
-                                        Articles
-                                    </Typography>
-                                </NavLink>
                             </Popover>
-                            <Typography 
-                            variant="h3"
-                            component="a"
-                            href="/"
-                            aria-label="Inspiredbuthellatired"
-                            sx={theme => ({
-                                color: "#000",
-                                textDecoration: "none"
-                            })}
+                            <Link
+                            href='/'
                             >
-                                IBHT
-                            </Typography>
+                                <img 
+                                src={Logo} 
+                                alt="Inspiredbuthellatired"
+                                className={classes.logo} 
+                                />
+                            </Link>
                             <nav
                             className={classes.nav}
                             >
@@ -198,7 +194,13 @@ const AppContent = () => {
                                 to="/about-me"
                                 className={({ isActive }) => isActive ? clsx(classes.activeLink, classes.link) : classes.link}
                                 >
-                                    <Typography>
+                                    <Typography
+                                    sx={(theme) => ({
+                                        [theme.breakpoints.up('md')]: {
+                                            fontSize: theme.typography.pxToRem(24)
+                                        }
+                                    })}
+                                    >
                                         About Me
                                     </Typography>
                                 </NavLink>
@@ -206,16 +208,14 @@ const AppContent = () => {
                                 to="/products"
                                 className={({ isActive }) => isActive ? clsx(classes.activeLink, classes.link) : classes.link}
                                 >
-                                    <Typography>
+                                    <Typography
+                                    sx={(theme) => ({
+                                        [theme.breakpoints.up('md')]: {
+                                            fontSize: theme.typography.pxToRem(24)
+                                        }
+                                    })}
+                                    >
                                         Products
-                                    </Typography>
-                                </NavLink>
-                                <NavLink
-                                to="/articles"
-                                className={({ isActive }) => isActive ? clsx(classes.activeLink, classes.link) : classes.link}
-                                >
-                                    <Typography>
-                                        Articles
                                     </Typography>
                                 </NavLink>
                             </nav>
@@ -239,12 +239,24 @@ const AppContent = () => {
             </AppBar>
             <Layout>
                 <Routes>
-                    <Route path='/*' element/>
-                    <Route path='about-me' element/>
-                    <Route path='prints' element/>
-                    <Route path='paintings' element/>
-                    <Route path='articles' element/>
-                    <Route path='cart' element/>
+                    <Route path='/*' element={
+                        <Suspense fallback={<div>Loading...</div>}>
+                            <Landing />
+                        </Suspense>
+                    } 
+                    />
+                    <Route path='about-me' element={
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <AboutMe />
+                    </Suspense>
+                    } 
+                    />
+                    <Route path='products' element={
+                        <Suspense fallback={<div>Loading...</div>}>
+                            <Products />
+                        </Suspense>
+                    } 
+                    />
                     <Route path='order-summary' element/>
                 </Routes>
             </Layout>
