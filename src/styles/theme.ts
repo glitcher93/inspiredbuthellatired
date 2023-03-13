@@ -16,21 +16,29 @@ const theme = createTheme({
         fontSize: 16,
         h1: {
             fontFamily: "Abel, sans-serif",
+            fontSize: `3rem`,
+            fontWeight: 600,
         },
         h2: {
-            fontFamily: "Abel, sans-serif"
+            fontFamily: "Abel, sans-serif",
+            fontSize: `2.25rem`,
+            fontWeight: 600,
         },
         h3: {
-            fontFamily: "Abel, sans-serif"
+            fontFamily: "Abel, sans-serif",
+            fontWeight: 600,
         },
         h4: {
-            fontFamily: "Abel, sans-serif"
+            fontFamily: "Abel, sans-serif",
+            fontWeight: 600,
         },
         h5: {
-            fontFamily: "Abel, sans-serif"
+            fontFamily: "Abel, sans-serif",
+            fontWeight: 600,
         },
         h6: {
-            fontFamily: "Abel, sans-serif"
+            fontFamily: "Abel, sans-serif",
+            fontWeight: 600,
         }
     }
 })
