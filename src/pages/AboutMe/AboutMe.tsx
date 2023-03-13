@@ -1,7 +1,7 @@
 const AboutMe = () => {
     return ( 
-        <>
-        </> 
+        <section>
+        </section> 
     );
 }
  
