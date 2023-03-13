@@ -27,11 +27,9 @@ const useStyles = makeStyles((theme: Theme) => ({
         alignItems: "center",
         [theme.breakpoints.up('md')]: {
             width: "33%",
-        },
-        [theme.breakpoints.up('lg')]: {
             alignItems: "flex-start",
             margin: `${theme.typography.pxToRem(16)} ${theme.typography.pxToRem(48)} 0 0`,
-        }
+        },
     },
     link: {
         textDecoration: "none",
@@ -82,6 +80,10 @@ const Footer = () => {
                 <Typography
                 sx={(theme) => ({
                     margin: `${theme.typography.pxToRem(16)} 0 0`,
+                    textAlign: "center",
+                    [theme.breakpoints.up('md')]: {
+                        textAlign: "left",
+                    }
                 })}
                 >
                 The main subject of Alyssa's work is the strange and the unusual which is important to her because she paints the macabre as a cathartic release.
