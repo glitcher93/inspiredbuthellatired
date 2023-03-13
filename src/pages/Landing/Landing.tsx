@@ -5,7 +5,6 @@ import Featured from '../../components/Featured';
 import Hero from '../../components/Hero';
 import Alyssa from '../../assets/images/alyssa-1.webp';
 import Weep from '../../assets/images/weepforme.webp';
-import Footer from '../../components/Footer';
 
 const useStyles = makeStyles((theme: Theme) => ({
     img: {
