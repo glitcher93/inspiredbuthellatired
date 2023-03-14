@@ -5,7 +5,6 @@ import Footer from "../Footer";
 
 
 const useStyles = makeStyles((theme: Theme) => ({
-    toolbar: theme.mixins.toolbar,
     wrapper: {
         padding: "1rem",
         width: "100%",
@@ -26,7 +25,6 @@ const Layout = ({ children }: ILayoutProps) => {
 
     return (
         <>
-            <div className={classes.toolbar}></div>
             <main
             className={classes.wrapper}
             >
