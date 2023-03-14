@@ -34,7 +34,7 @@ const Hero = () => {
             <Typography 
             variant="h1"
             sx={(theme) => ({
-                fontSize: theme.typography.pxToRem(36),
+                fontSize: theme.typography.pxToRem(32),
                 margin: `0 0 ${theme.typography.pxToRem(16)}`,
                 fontWeight: 600,
                 [theme.breakpoints.up('md')]: {
