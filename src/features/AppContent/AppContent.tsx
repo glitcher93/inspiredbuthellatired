@@ -16,6 +16,9 @@ const drawerWidthMed = "50%";
 const Landing = lazy(() => import("../../pages/Landing"));
 const AboutMe = lazy(() => import("../../pages/AboutMe"));
 const Products = lazy(() => import("../../pages/Products"));
+const All = lazy(() => import("../../components/All"));
+const Paintings = lazy(() => import("../../components/Paintings"));
+const Prints = lazy(() => import("../../components/Prints"));
 
 const useStyles = makeStyles((theme: Theme) => ({
     drawer: {
@@ -239,24 +242,63 @@ const AppContent = () => {
             </AppBar>
             <Layout>
                 <Routes>
-                    <Route path='/*' element={
+                    <Route 
+                    path='/*' 
+                    element={
                         <Suspense fallback={<div>Loading...</div>}>
                             <Landing />
                         </Suspense>
                     } 
                     />
-                    <Route path='about-me' element={
+                    <Route 
+                    path='about-me' 
+                    element={
                     <Suspense fallback={<div>Loading...</div>}>
                         <AboutMe />
                     </Suspense>
                     } 
                     />
-                    <Route path='products' element={
+                    <Route 
+                    path='products' 
+                    element={
                         <Suspense fallback={<div>Loading...</div>}>
                             <Products />
                         </Suspense>
                     } 
-                    />
+                    >
+                        <Route index element={
+                            <Suspense fallback={<div>Loading...</div>}>
+                                <All />
+                            </Suspense>
+                        } 
+                        
+                        />
+                        <Route 
+                        path='all' 
+                        element={
+                            <Suspense fallback={<div>Loading...</div>}>
+                                <All />
+                            </Suspense>
+                        } 
+                        
+                        />
+                        <Route 
+                        path='paintings' 
+                        element={
+                            <Suspense fallback={<div>Loading...</div>}>
+                                <Paintings />
+                            </Suspense>
+                        } 
+                        />
+                        <Route 
+                        path='prints' 
+                        element={
+                            <Suspense fallback={<div>Loading...</div>}>
+                                <Prints />
+                            </Suspense>
+                        } 
+                        />
+                    </Route>
                     <Route path='order-summary' element/>
                 </Routes>
             </Layout>
