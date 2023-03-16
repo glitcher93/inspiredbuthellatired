@@ -53,7 +53,10 @@ const All = () => {
         <>
             <ProductsGrid>
             {items.map(item => (
-                <Item item={item} />
+                <Item 
+                key={item.id}
+                item={item} 
+                />
             ))}
             </ProductsGrid>
         </>

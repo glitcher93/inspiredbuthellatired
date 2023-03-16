@@ -67,7 +67,10 @@ const Featured = () => {
             spacing={2}
             >
                 {items.map((item) => (
-                    <Item item={item}/>
+                    <Item 
+                    key={item.id}
+                    item={item}
+                    />
                 ))}
             </Grid>
         </section>
