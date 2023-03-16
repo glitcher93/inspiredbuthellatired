@@ -69,6 +69,7 @@ const Item = ({ item }: {item: {id: number, price: number, title: string, size: 
                 backgroundColor: "#0000BB",
                 color: "#FFF",
                 padding: 1,
+                transition: 'background-color 0.3s',
                 '&:hover': {
                     backgroundColor: "#0000FF",
                 },
@@ -79,5 +80,5 @@ const Item = ({ item }: {item: {id: number, price: number, title: string, size: 
         </Grid>
     );
 }
- 
+
 export default Item;
