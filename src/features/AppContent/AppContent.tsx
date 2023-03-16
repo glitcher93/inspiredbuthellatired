@@ -9,8 +9,9 @@ import Layout from "../../components/Layout";
 import { AppDispatch } from "../../utils/interfaces";
 import { selectAnchor, selectAnchorEl, selectDrawerOpen, setAnchor, toggleDrawerOpen } from "./appContentSlice";
 import Logo from "../../assets/logo/logo-1.webp";
+import Cart from "../Cart";
 
-const drawerWidth = "75%";
+const drawerWidth = "100%";
 const drawerWidthMed = "50%";
 
 const Landing = lazy(() => import("../../pages/Landing"));
@@ -29,6 +30,19 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     drawerPaper: {
         width: drawerWidth,
+        overflowY: "scroll",
+        '&::-webkit-scrollbar': {
+            width: theme.typography.pxToRem(10),
+        },
+        '&::-webkit-scrollbar-track': {
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            borderRadius: theme.typography.pxToRem(4),
+            margin: `${theme.typography.pxToRem(8)} 0`,
+        },
+        '&::-webkit-scrollbar-thumb': {
+            backgroundColor: "#BBB",
+            borderRadius: theme.typography.pxToRem(4),
+        },
         [theme.breakpoints.up('md')]: {
             width: drawerWidthMed
         }
@@ -311,7 +325,7 @@ const AppContent = () => {
                 paper: classes.drawerPaper
             }}
             >
-                
+                <Cart />
             </Drawer>
         </>
     );
