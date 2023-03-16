@@ -7,7 +7,9 @@ const useStyles = makeStyles((theme: Theme) => ({
         alignItems: 'center',
         marginTop: theme.typography.pxToRem(24),
         width: `100%`,
-        height: `auto`,         
+        height: `auto`,
+        border: `1px solid ${theme.palette.grey[300]}`,
+        padding: theme.typography.pxToRem(8),         
     },
     imageContainer: {
         width: `33%`,
