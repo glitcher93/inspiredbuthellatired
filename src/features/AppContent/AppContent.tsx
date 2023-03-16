@@ -12,7 +12,8 @@ import Logo from "../../assets/logo/logo-1.webp";
 import Cart from "../Cart";
 
 const drawerWidth = "100%";
-const drawerWidthMed = "50%";
+const drawerWidthMed = "66%";
+const drawerWidthLg = "50%";
 
 const Landing = lazy(() => import("../../pages/Landing"));
 const AboutMe = lazy(() => import("../../pages/AboutMe"));
@@ -45,6 +46,9 @@ const useStyles = makeStyles((theme: Theme) => ({
         },
         [theme.breakpoints.up('md')]: {
             width: drawerWidthMed
+        },
+        [theme.breakpoints.up('lg')]: {
+            width: drawerWidthLg
         }
     },
     responsiveGutter: {
