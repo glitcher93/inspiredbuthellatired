@@ -100,14 +100,6 @@ const CartItem = ({ item }: {item: {id: number, price: number, title: string, si
                     >
                         {item.size}
                     </Typography>
-                    <Typography
-                    sx={(theme) => ({
-                        [theme.breakpoints.up(420)]: {
-                        }
-                    })}
-                    >
-                        QTY: 1
-                    </Typography>
                 </div>
                 <div
                 className={classes.priceContainer}
