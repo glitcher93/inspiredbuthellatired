@@ -1,5 +1,9 @@
-import { Theme, Typography } from "@mui/material";
+import { Close } from "@mui/icons-material";
+import { IconButton, Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import { useDispatch } from "react-redux";
+import { removeFromCart } from "../../features/Cart/cartSlice";
+import { AppDispatch } from "../../utils/interfaces";
 
 const useStyles = makeStyles((theme: Theme) => ({
     itemContainer: {
@@ -9,7 +13,8 @@ const useStyles = makeStyles((theme: Theme) => ({
         width: `100%`,
         height: `auto`,
         border: `1px solid ${theme.palette.grey[300]}`,
-        padding: theme.typography.pxToRem(8),         
+        padding: theme.typography.pxToRem(8),
+        position: 'relative',         
     },
     imageContainer: {
         width: `33%`,
@@ -51,10 +56,6 @@ const useStyles = makeStyles((theme: Theme) => ({
         marginRight: theme.typography.pxToRem(24),
         height: `100%`,
         width: `100%`,
-    },
-    priceContainer: {
-
-
     }
 }));
 
@@ -63,10 +64,27 @@ const CartItem = ({ item }: {item: {id: number, price: number, title: string, si
 
     const classes = useStyles();
 
+    const dispatch = useDispatch<AppDispatch>();
+
+    const removeItem = (cartItem: {id: number, price: number, title: string, size: string, image: string}) => {
+        dispatch(removeFromCart(cartItem));
+    }
+
     return ( 
         <div
         className={classes.itemContainer}
         >
+            <IconButton
+            sx={(theme) => ({
+                padding: 0,
+                position: 'absolute',
+                top: '4px',
+                right: '4px',
+            })}
+            onClick={() => removeItem(item)}
+            >
+                <Close />
+            </IconButton>
             <div
             className={classes.imageContainer}
             >
@@ -95,6 +113,7 @@ const CartItem = ({ item }: {item: {id: number, price: number, title: string, si
                     </Typography>
                     <Typography
                     sx={(theme) => ({
+                        fontSize: theme.typography.pxToRem(14),
                         [theme.breakpoints.up(420)]: {
                             marginBottom: theme.typography.pxToRem(8),
                         }
@@ -103,9 +122,7 @@ const CartItem = ({ item }: {item: {id: number, price: number, title: string, si
                         {item.size}
                     </Typography>
                 </div>
-                <div
-                className={classes.priceContainer}
-                >
+                <div>
                     <Typography
                     sx={(theme) => ({
                         [theme.breakpoints.up(420)]: {
@@ -121,5 +138,5 @@ const CartItem = ({ item }: {item: {id: number, price: number, title: string, si
         </div>
     );
 }
- 
+
 export default CartItem;
