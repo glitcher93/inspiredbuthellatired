@@ -40,7 +40,7 @@ const Cart = () => {
 
     const cart = useSelector(selectCart);
 
-    const price = cart.reduce((acc, item) => acc + item.price, 0);
+    const price = cart.reduce((acc, item) => acc + (item.price * item.quantity!), 0);
 
     return (
         <div
@@ -121,9 +121,8 @@ const Cart = () => {
                 Checkout
             </Button>
             }
-            
         </div>
     );
 }
- 
+
 export default Cart;
