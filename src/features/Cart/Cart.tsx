@@ -1,11 +1,11 @@
 import { Close } from "@mui/icons-material";
 import { Typography, Theme, IconButton, Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { useDispatch} from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import { AppDispatch } from "../../utils/interfaces";
 import { toggleDrawerOpen } from "../AppContent/appContentSlice";
-import Weep from '../../assets/images/weepforme.webp';
 import CartItem from "../../components/CartItem";
+import { selectCart } from "./cartSlice";
 
 const useStyles = makeStyles((theme: Theme) => ({
     cartContainer: {
@@ -38,50 +38,7 @@ const Cart = () => {
         dispatch(toggleDrawerOpen(false));
     }
 
-    const cart = [
-        {
-            id: 1,
-            image: Weep,
-            title: "Item 1",
-            size: "30\" x 20\"",
-            price: 100
-        },
-        {
-            id: 2,
-            image: Weep,
-            title: "Item 2",
-            size: "30\" x 20\"",
-            price: 100
-        },
-        {
-            id: 3,
-            image: Weep,
-            title: "Item 3",
-            size: "30\" x 20\"",
-            price: 100
-        },
-        {
-            id: 4,
-            image: Weep,
-            title: "Item 4",
-            size: "30\" x 20\"",
-            price: 100
-        },
-        {
-            id: 5,
-            image: Weep,
-            title: "Item 5",
-            size: "30\" x 20\"",
-            price: 100
-        },
-        {
-            id: 6,
-            image: Weep,
-            title: "Item 6",
-            size: "30\" x 20\"",
-            price: 100
-        },
-    ]
+    const cart = useSelector(selectCart);
 
     const price = cart.reduce((acc, item) => acc + item.price, 0);
 
