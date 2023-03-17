@@ -102,10 +102,10 @@ const AboutMe = () => {
                         >
                             Photo by: 
                             <a 
-                            href="https://www.instagram.com/cue.photo"
+                            href="https://www.instagram.com/vilegloomm"
                             className={classes.link}
                             >
-                                @cue.photo
+                                @vilegloomm
                             </a>
                         </Typography>
                     </div>
@@ -135,10 +135,10 @@ const AboutMe = () => {
                             >
                                 Photo by: 
                                 <a 
-                                href="https://www.instagram.com/cue.photo"
+                                href="https://www.instagram.com/vilegloomm"
                                 className={classes.link}
                                 >
-                                    @cue.photo
+                                    @vilegloomm
                                 </a>
                             </Typography>
                         </div>
