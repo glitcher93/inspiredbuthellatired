@@ -2,7 +2,7 @@ import { Button, Grid, Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../features/Cart/cartSlice";
-import { AppDispatch, ICartItem } from "../../utils/interfaces";
+import { AppDispatch, ICartItem, IItem } from "../../utils/interfaces";
 
 const useStyles = makeStyles((theme: Theme) => ({
     image: {
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     }
 }))
 
-const Item = ({ item }: {item: {id: number, price: number, title: string, size: string, image: string}}) => {
+const Item = ({ item }: {item: IItem}) => {
 
     const classes = useStyles();
 
