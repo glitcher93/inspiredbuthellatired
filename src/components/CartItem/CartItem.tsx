@@ -1,9 +1,9 @@
-import { Close } from "@mui/icons-material";
+import { Add, Close, Remove } from "@mui/icons-material";
 import { IconButton, Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useDispatch } from "react-redux";
-import { removeFromCart } from "../../features/Cart/cartSlice";
-import { AppDispatch } from "../../utils/interfaces";
+import { decrementQuantity, incrementQuantity, removeFromCart } from "../../features/Cart/cartSlice";
+import { AppDispatch, ICartItem } from "../../utils/interfaces";
 
 const useStyles = makeStyles((theme: Theme) => ({
     itemContainer: {
@@ -50,25 +50,45 @@ const useStyles = makeStyles((theme: Theme) => ({
         }
     },
     itemText: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-around',
         marginRight: theme.typography.pxToRem(24),
         height: `100%`,
         width: `100%`,
+        [theme.breakpoints.up(550)]: {
+            display: 'flex',
+        }
+    },
+    quantityContainer: {
+        display: 'flex',
+        alignItems: 'center',
+        [theme.breakpoints.up(550)]: {
+            width: `50%`,
+        }
+    },
+    itemInfo: {
+        [theme.breakpoints.up(550)]: {
+            width: `50%`,
+        }
     }
 }));
 
 
-const CartItem = ({ item }: {item: {id: number, price: number, title: string, size: string, image: string}}) => {
+const CartItem = ({ item }: {item: ICartItem}) => {
 
     const classes = useStyles();
 
     const dispatch = useDispatch<AppDispatch>();
 
-    const removeItem = (cartItem: {id: number, price: number, title: string, size: string, image: string}) => {
+    const removeItem = (cartItem: ICartItem) => {
         dispatch(removeFromCart(cartItem));
     }
+
+    const increment = (cartItem: ICartItem) => {
+        dispatch(incrementQuantity(cartItem));
+    };
+
+    const decrement = (cartItem: ICartItem) => {
+        dispatch(decrementQuantity(cartItem));
+    };
 
     return ( 
         <div
@@ -100,27 +120,82 @@ const CartItem = ({ item }: {item: {id: number, price: number, title: string, si
                 <div
                 className={classes.itemText}
                 >
-                    <Typography
-                    sx={(theme) => ({
-                        [theme.breakpoints.up(420)]: {
-                            fontSize: theme.typography.pxToRem(18),
+                    <div
+                    className={classes.itemInfo}
+                    >
+                        <Typography
+                        sx={(theme) => ({
+                            [theme.breakpoints.up(420)]: {
+                                fontSize: theme.typography.pxToRem(18),
+                                fontWeight: 600,
+                                marginBottom: theme.typography.pxToRem(8),
+                            }
+                        })}
+                        >
+                            {item.title}
+                        </Typography>
+                        <Typography
+                        sx={(theme) => ({
+                            fontSize: theme.typography.pxToRem(14),
+                            [theme.breakpoints.up(420)]: {
+                                marginBottom: theme.typography.pxToRem(8),
+                            }
+                        })}
+                        >
+                            {item.size}
+                        </Typography>
+                    </div>
+                    {item.type === "Print" &&
+                    <div
+                    className={classes.quantityContainer}
+                    >
+                        <IconButton
+                        onClick={() => decrement(item)}
+                        sx={(theme) => ({
+                            paddingX: 0,
+                        })}
+                        >
+                            <Remove 
+                            sx={(theme) => ({
+                            fontSize: theme.typography.pxToRem(14),
+                            marginRight: theme.typography.pxToRem(8),
+                            [theme.breakpoints.up(550)]: {
+                                fontSize: theme.typography.pxToRem(18),
+                                marginRight: theme.typography.pxToRem(8),
+                            }
+                            })}
+                            />
+                        </IconButton>
+                        <Typography
+                        sx={(theme) => ({
+                            fontSize: theme.typography.pxToRem(14),
                             fontWeight: 600,
-                            marginBottom: theme.typography.pxToRem(8),
-                        }
-                    })}
-                    >
-                        {item.title}
-                    </Typography>
-                    <Typography
-                    sx={(theme) => ({
-                        fontSize: theme.typography.pxToRem(14),
-                        [theme.breakpoints.up(420)]: {
-                            marginBottom: theme.typography.pxToRem(8),
-                        }
-                    })}
-                    >
-                        {item.size}
-                    </Typography>
+                            [theme.breakpoints.up(550)]: {
+                                fontSize: theme.typography.pxToRem(18),
+                            }
+                        })}
+                        >
+                            {item.quantity}
+                        </Typography>
+                        <IconButton
+                        onClick={() => increment(item)}
+                        sx={(theme) => ({
+                            paddingX: 0,
+                        })}
+                        >
+                            <Add 
+                            sx={(theme) => ({
+                            fontSize: theme.typography.pxToRem(14),
+                            marginLeft: theme.typography.pxToRem(8),
+                            [theme.breakpoints.up(550)]: {
+                                fontSize: theme.typography.pxToRem(18),
+                                marginLeft: theme.typography.pxToRem(8),
+                            }
+                            })}
+                            />
+                        </IconButton>
+                    </div>
+                    }
                 </div>
                 <div>
                     <Typography
@@ -131,7 +206,7 @@ const CartItem = ({ item }: {item: {id: number, price: number, title: string, si
                         }
                     })}
                     >
-                        ${item.price.toFixed(2)}
+                        ${(item.price * item.quantity!).toFixed(2)}
                     </Typography>
                 </div>
             </div>
