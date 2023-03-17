@@ -1,7 +1,8 @@
 import { Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { Link, Outlet } from "react-router-dom";
-import Weep from "../../assets/images/weepforme.webp";
+import clsx from "clsx";
+import { NavLink, Outlet } from "react-router-dom";
+
 
 const useStyles = makeStyles((theme: Theme) => ({
     links: {
@@ -24,6 +25,9 @@ const useStyles = makeStyles((theme: Theme) => ({
         '&:first-of-type': {
             marginLeft: 0
         }
+    },
+    active: {
+        backgroundColor: "#0000FF",
     }
 }))
 
@@ -59,28 +63,28 @@ const Products = () => {
             >
                 Products
             </Typography>
-            <div
+            <nav
             className={classes.links}
             >
-                <Link 
+                <NavLink 
                 to="all"
-                className={classes.link}
+                className={({isActive}) => isActive ? clsx(classes.link, classes.active) : classes.link}
                 >
                     All
-                </Link>
-                <Link 
+                </NavLink>
+                <NavLink 
                 to="paintings"
-                className={classes.link}
+                className={({isActive}) => isActive ? clsx(classes.link, classes.active) : classes.link}
                 >
                     Paintings
-                </Link>
-                <Link 
+                </NavLink>
+                <NavLink 
                 to="prints"
-                className={classes.link}
+                className={({isActive}) => isActive ? clsx(classes.link, classes.active) : classes.link}
                 >
                     Prints
-                </Link>
-            </div>
+                </NavLink>
+            </nav>
             <Outlet />
         </section> 
     );
