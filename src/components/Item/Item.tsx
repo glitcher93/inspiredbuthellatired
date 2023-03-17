@@ -1,5 +1,8 @@
 import { Button, Grid, Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../features/Cart/cartSlice";
+import { AppDispatch, ICartItem } from "../../utils/interfaces";
 
 const useStyles = makeStyles((theme: Theme) => ({
     image: {
@@ -15,6 +18,12 @@ const useStyles = makeStyles((theme: Theme) => ({
 const Item = ({ item }: {item: {id: number, price: number, title: string, size: string, image: string}}) => {
 
     const classes = useStyles();
+
+    const dispatch = useDispatch<AppDispatch>();
+
+    const addCartItem = (item: ICartItem) => {
+        dispatch(addToCart(item));
+    }
 
     return (
         <Grid 
@@ -74,6 +83,7 @@ const Item = ({ item }: {item: {id: number, price: number, title: string, size: 
                     backgroundColor: "#0000FF",
                 },
             })}
+            onClick={() => addCartItem(item)}
             >
                 Add to cart
             </Button>
