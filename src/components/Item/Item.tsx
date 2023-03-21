@@ -2,7 +2,7 @@ import { Button, Grid, Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../features/Cart/cartSlice";
-import { AppDispatch, ICartItem, IItem } from "../../utils/interfaces";
+import { AppDispatch, ICartItem, IProductProps } from "../../utils/interfaces";
 
 const useStyles = makeStyles((theme: Theme) => ({
     image: {
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     }
 }))
 
-const Item = ({ item }: {item: IItem}) => {
+const Item = ({ item }: IProductProps) => {
 
     const classes = useStyles();
 
@@ -30,8 +30,7 @@ const Item = ({ item }: {item: IItem}) => {
         item 
         sm={12} 
         md={4} 
-        lg={3} 
-        key={item.id}
+        lg={3}
         sx={(theme) => ({
             display: "flex",
             flexDirection: "column",
