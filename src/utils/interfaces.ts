@@ -24,6 +24,10 @@ export interface IItem {
     type: string
 }
 
+export interface IProductProps {
+    item: IItem
+}
+
 export type RootState = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;
