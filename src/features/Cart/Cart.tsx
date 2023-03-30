@@ -5,7 +5,8 @@ import { useDispatch, useSelector} from "react-redux";
 import { AppDispatch } from "../../utils/interfaces";
 import { toggleDrawerOpen } from "../AppContent/appContentSlice";
 import CartItem from "../../components/CartItem";
-import { selectCart } from "./cartSlice";
+import { checkout, selectCart } from "./cartSlice";
+import { FormEvent } from "react";
 
 const useStyles = makeStyles((theme: Theme) => ({
     cartContainer: {
@@ -40,7 +41,14 @@ const Cart = () => {
 
     const cart = useSelector(selectCart);
 
-    const price = cart.reduce((acc, item) => acc + (item.price * item.quantity!), 0);
+    const price = cart.reduce((acc, item) => acc + ((Number(item.priceInCents) / 100) * item.quantity!), 0);
+
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => { 
+        e.preventDefault();
+        
+        dispatch(checkout({cart}))
+    }
+
 
     return (
         <div
@@ -105,21 +113,29 @@ const Cart = () => {
             </div>
             }
             {cart.length >= 1 &&
-            <Button
-            sx={(theme) => ({
-                backgroundColor: "#0000BB",
-                color: "#FFF",
-                padding: 1,
-                transition: 'background-color 0.3s',
-                marginTop: theme.typography.pxToRem(24),
-                '&:hover': {
-                    backgroundColor: "#0000FF",
-                },
-                fontSize: theme.typography.pxToRem(18),
-            })}
+            <form
+            action="/checkout"
+            method="POST"
+            onSubmit={handleSubmit}
             >
-                Checkout
-            </Button>
+                <Button
+                sx={(theme) => ({
+                    backgroundColor: "#0000BB",
+                    color: "#FFF",
+                    padding: 1,
+                    transition: 'background-color 0.3s',
+                    marginTop: theme.typography.pxToRem(24),
+                    '&:hover': {
+                        backgroundColor: "#0000FF",
+                    },
+                    fontSize: theme.typography.pxToRem(18),
+                })}
+                type="submit"
+                >
+                    Checkout
+                </Button>
+            </form>
+            
             }
         </div>
     );
