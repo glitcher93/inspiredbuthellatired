@@ -1,9 +1,25 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { ICartItem, IItem, RootState } from "../../utils/interfaces";
+import axios from "axios";
+import apiUrl from "../../utils/common";
+import { ICartItem, RootState } from "../../utils/interfaces";
 
 const initialState = {
-    cart: [] as ICartItem[]
+    cart: [] as ICartItem[],
+    checkoutPending: false,
+    checkoutFailed: false
 }
+
+export const checkout = createAsyncThunk('cart/checkout', async ({cart}: {cart: ICartItem[]}) => {
+    try {
+        const response = await axios.post(`${apiUrl}/checkout`, {
+            items: cart
+        });
+        return response.data.url;
+        
+    } catch (err) {
+        console.log(err);
+    }
+});
 
 const cartSlice = createSlice({
     name: 'cart',
@@ -54,12 +70,31 @@ const cartSlice = createSlice({
         removeFromCart: (state, action) => {
             const updatedCart = state.cart.filter(item => item.id !== action.payload.id);
             state.cart = updatedCart;
+        },
+        clearCart: (state) => {
+            state.cart = [];
         }
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(checkout.pending, (state, action) => {
+                state.checkoutPending = true;
+                state.checkoutFailed = false;
+            })
+            .addCase(checkout.fulfilled, (state, action) => {
+                state.checkoutPending = false;
+                state.checkoutFailed = false;
+                window.location.href = action.payload;
+            })
+            .addCase(checkout.rejected, (state, action) => {
+                state.checkoutPending = false;
+                state.checkoutFailed = true;
+            })
     }
 })
 
 export const selectCart = (state: RootState) => state.cart.cart;
 
-export const { addToCart, removeFromCart, incrementQuantity, decrementQuantity } = cartSlice.actions;
+export const { addToCart, removeFromCart, incrementQuantity, decrementQuantity, clearCart } = cartSlice.actions;
 
 export default cartSlice.reducer;
