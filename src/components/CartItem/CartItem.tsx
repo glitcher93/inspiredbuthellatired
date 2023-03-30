@@ -206,7 +206,7 @@ const CartItem = ({ item }: {item: ICartItem}) => {
                         }
                     })}
                     >
-                        ${(item.price * item.quantity!).toFixed(2)}
+                        ${((Number(item.priceInCents) / 100) * item.quantity!).toFixed(2)}
                     </Typography>
                 </div>
             </div>

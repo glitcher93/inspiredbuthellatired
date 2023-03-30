@@ -70,7 +70,7 @@ const Item = ({ item }: IProductProps) => {
                 fontWeight: 400,
             })}
             >
-                ${item.price.toFixed(2)}
+                ${Number(item.priceInCents / 100).toFixed(2)}
             </Typography>
             <Button
             sx={(theme) => ({
