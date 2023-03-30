@@ -1,5 +1,5 @@
 import { Menu, ShoppingCartOutlined } from "@mui/icons-material";
-import { AppBar, Drawer, IconButton, Link, Popover, Theme, Toolbar, Typography } from "@mui/material";
+import { AppBar, Avatar, Drawer, IconButton, Link, Popover, Theme, Toolbar, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import clsx from "clsx";
 import { MouseEvent, lazy, Suspense } from "react";
@@ -10,6 +10,7 @@ import { AppDispatch } from "../../utils/interfaces";
 import { selectAnchor, selectAnchorEl, selectDrawerOpen, setAnchor, toggleDrawerOpen } from "./appContentSlice";
 import Logo from "../../assets/logo/logo-1.webp";
 import Cart from "../Cart";
+import { selectCart } from "../Cart/cartSlice";
 
 const drawerWidth = "100%";
 const drawerWidthMed = "66%";
@@ -105,6 +106,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     logo: {
         width: `${theme.typography.pxToRem(50)}`,
         borderRadius: "50%",
+    },
+    cartFlex: {
+        display: "flex",
+        alignItems: "center",
     }
 }), {index: 1});
 
@@ -119,6 +124,10 @@ const AppContent = () => {
     const anchor = useSelector(selectAnchorEl);
 
     const open = useSelector(selectAnchor);
+
+    const cart = useSelector(selectCart);
+
+    const cartCount = cart.reduce((acc, item) => acc + item.quantity!, 0);
 
     const openDrawer = () => {
         dispatch(toggleDrawerOpen(true));
@@ -242,7 +251,18 @@ const AppContent = () => {
                             </nav>
                         </div>
                     </div>
-                    <div>
+                    <div
+                    className={classes.cartFlex}
+                    >
+                        {cart.length > 0 && (
+                            <Avatar
+                            sx={(theme) => ({
+                                backgroundColor: "#0000FF"
+                            })}
+                            >
+                                {cartCount}
+                            </Avatar>
+                        )}
                         <IconButton
                         role="button"
                         aria-label="cart"
