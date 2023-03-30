@@ -3,6 +3,7 @@ import appContentSlice from '../features/AppContent/appContentSlice';
 import cartSlice from '../features/Cart/cartSlice';
 import storage from 'redux-persist/lib/storage';
 import {persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER} from 'redux-persist';
+import productsGridSlice from '../features/ProductsGrid/productsGridSlice';
 
 const persistConfig = {
     key: 'root',
@@ -13,7 +14,8 @@ const persistedReducer = persistReducer(persistConfig, cartSlice);
 
 const reducer = {
     appContent: appContentSlice,
-    cart: persistedReducer
+    cart: persistedReducer,
+    productsGrid: productsGridSlice
 }
 
 const store = configureStore({
