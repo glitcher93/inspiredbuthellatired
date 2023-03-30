@@ -8,20 +8,22 @@ export interface ILayoutProps {
 export interface ICartItem {
     id: number
     title: string
-    price: number
+    priceInCents: number
     image: string
     size: string
     type: string
+    inStock: boolean
     quantity?: number
 }
 
 export interface IItem {
     id: number 
-    price: number 
+    priceInCents: number 
     title: string 
     size: string 
     image: string 
     type: string
+    inStock: boolean
 }
 
 export interface IProductProps {
