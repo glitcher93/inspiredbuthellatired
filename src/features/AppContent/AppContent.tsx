@@ -141,7 +141,7 @@ const AppContent = () => {
         dispatch(setAnchor({anchor: true, anchorEl: e.currentTarget}));
     }
 
-    const handleClose = (e: MouseEvent<HTMLButtonElement>) => {
+    const handleClose = (e: MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
         e.stopPropagation();
         dispatch(setAnchor({anchor: false, anchorEl: null}));
     }
@@ -194,6 +194,7 @@ const AppContent = () => {
                                 <NavLink
                                 to="/about-me"
                                 className={({ isActive }) => isActive ? clsx(classes.activeLink, classes.link) : classes.link}
+                                onClick={handleClose}
                                 >
                                     <Typography>
                                         About Me
@@ -202,6 +203,7 @@ const AppContent = () => {
                                 <NavLink
                                 to="/products"
                                 className={({ isActive }) => isActive ? clsx(classes.activeLink, classes.link) : classes.link}
+                                onClick={handleClose}
                                 >
                                     <Typography>
                                         Products
