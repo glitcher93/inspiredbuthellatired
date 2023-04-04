@@ -4,6 +4,7 @@ import cartSlice from '../features/Cart/cartSlice';
 import storage from 'redux-persist/lib/storage';
 import {persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER} from 'redux-persist';
 import productsGridSlice from '../features/ProductsGrid/productsGridSlice';
+import orderSummarySlice from '../features/OrderSummary/orderSummarySlice';
 
 const persistConfig = {
     key: 'root',
@@ -15,7 +16,8 @@ const persistedReducer = persistReducer(persistConfig, cartSlice);
 const reducer = {
     appContent: appContentSlice,
     cart: persistedReducer,
-    productsGrid: productsGridSlice
+    productsGrid: productsGridSlice,
+    orderSummary: orderSummarySlice
 }
 
 const store = configureStore({
