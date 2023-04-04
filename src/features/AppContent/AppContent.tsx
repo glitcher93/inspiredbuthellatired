@@ -22,6 +22,7 @@ const Products = lazy(() => import("../../pages/Products"));
 const All = lazy(() => import("../../components/All"));
 const Paintings = lazy(() => import("../../components/Paintings"));
 const Prints = lazy(() => import("../../components/Prints"));
+const Success = lazy(() => import("../../pages/Success"));
 
 const useStyles = makeStyles((theme: Theme) => ({
     drawer: {
@@ -339,7 +340,12 @@ const AppContent = () => {
                         } 
                         />
                     </Route>
-                    <Route path='order-summary' element/>
+                    <Route path='success' element={
+                        <Suspense fallback={<div>Loading...</div>}>
+                            <Success />
+                        </Suspense>
+                    }
+                    />
                 </Routes>
             </Layout>
             <Drawer
