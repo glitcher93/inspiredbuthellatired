@@ -5,6 +5,7 @@ import storage from 'redux-persist/lib/storage';
 import {persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER} from 'redux-persist';
 import productsGridSlice from '../features/ProductsGrid/productsGridSlice';
 import orderSummarySlice from '../features/OrderSummary/orderSummarySlice';
+import adminLoginSlice from '../features/AdminLogin/adminLoginSlice';
 
 const persistConfig = {
     key: 'root',
@@ -17,7 +18,8 @@ const reducer = {
     appContent: appContentSlice,
     cart: persistedReducer,
     productsGrid: productsGridSlice,
-    orderSummary: orderSummarySlice
+    orderSummary: orderSummarySlice,
+    adminLogin: adminLoginSlice
 }
 
 const store = configureStore({
