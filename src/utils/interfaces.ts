@@ -12,7 +12,7 @@ export interface ICartItem {
     image: string
     size: string
     type: string
-    inStock: boolean
+    inStock?: boolean
     quantity?: number
 }
 
@@ -28,6 +28,28 @@ export interface IItem {
 
 export interface IProductProps {
     item: IItem
+}
+
+export interface IOrder {
+    id: string
+    orderId: string
+    subtotal: number
+    total: number
+    shippingInfo: IShippingInfo
+    items: ICartItem[]
+}
+
+interface IShippingInfo {
+    name: string
+    addressLineOne: string
+    addressLineTwo?: string
+    city: string
+    state: string
+    postalCode: string
+    phoneNumber: string
+    paymentStatus: string
+    trackingNumber?: string
+    createdAt: string
 }
 
 export type RootState = ReturnType<typeof store.getState>;
