@@ -5,17 +5,8 @@ import Logo from '../../assets/logo/logo.webp';
 const useStyles = makeStyles((theme: Theme) => ({
     img: {
         width: "100%",
-        height: `38vh`,
         objectFit: "cover",
-        [theme.breakpoints.up('md')]: {
-            height: `${theme.typography.pxToRem(450)}`
-        },
-        [theme.breakpoints.up('lg')]: {
-            height: `65vh`
-        },
-        [theme.breakpoints.up('xl')]: {
-            height: `70vh`
-        },
+        aspectRatio: "16/9",
     },
     hero: {
         display: "flex",
