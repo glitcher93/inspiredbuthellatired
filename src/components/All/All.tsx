@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductsGrid from "../../features/ProductsGrid";
@@ -21,6 +22,17 @@ const All = () => {
 
     return (
         <>
+            <Typography
+            variant="h2"
+            sx={(theme) => ({
+                margin: `${theme.typography.pxToRem(16)} 0`,
+                [theme.breakpoints.up('md')]: {
+                    fontSize: theme.typography.pxToRem(42),
+                }
+            })}
+            >
+                All Products
+            </Typography>
             <ProductsGrid>
                 {items.map(item =>{ 
                     return item.inStock ? (
