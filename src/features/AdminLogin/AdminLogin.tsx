@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Logo from '../../assets/logo/logo-1.webp';
 import { AppDispatch } from '../../utils/interfaces';
 import { changeEmail, changePassword, login, selectEmail, selectEmailError, selectPassword, selectPasswordError, toggleEmailError, togglePasswordError } from './adminLoginSlice';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const useStyles = makeStyles((theme: Theme) => ({
     main: {
@@ -28,6 +30,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 const AdminLogin = () => {
 
     const dispatch = useDispatch<AppDispatch>();
+
+    const navigate = useNavigate();
 
     const email = useSelector(selectEmail);
     const emailError = useSelector(selectEmailError);
@@ -69,7 +73,14 @@ const AdminLogin = () => {
             return    
         }
 
-        dispatch(login({email, password}));
+        dispatch(login({email, password}))
+            .then(() => {
+                toast.success("Login Successful!")
+                navigate('/admin', { replace: true })
+            })
+            .catch((err) => {
+                toast.error('Login Unsuccessful')
+            })
     }
 
     return (
@@ -102,6 +113,7 @@ const AdminLogin = () => {
             >
                 <TextField 
                 label="Email"
+                name="email"
                 onChange={handleOnChange}
                 value={email}
                 error={emailError}
@@ -111,6 +123,7 @@ const AdminLogin = () => {
                 />
                 <TextField 
                 label="Password"
+                name="password"
                 type="password"
                 onChange={handleOnChange}
                 value={password}
