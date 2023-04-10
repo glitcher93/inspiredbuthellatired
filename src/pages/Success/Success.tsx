@@ -31,8 +31,7 @@ const Success = () => {
 
     const navigate = useNavigate();
 
-    const orderPending = useSelector(selectOrderPending);
-    const order: IOrder | null = useSelector(selectOrder);
+    const order: IOrder = useSelector(selectOrder);
 
     const [searchParams] = useSearchParams();
 
@@ -51,7 +50,6 @@ const Success = () => {
 
     return (
         <>
-        {!orderPending &&
             <section>
                 <Typography
                 variant="h1"
@@ -81,7 +79,7 @@ const Success = () => {
                     >
                         Thank you for your purchase!
                     </Typography>
-                    {!orderPending && order !== null && <OrderSummary />}
+                    <OrderSummary order={order}/>
                     <Link 
                     to='/'
                     className={classes.link}
@@ -97,7 +95,6 @@ const Success = () => {
                     </Link>
                 </article>
             </section>
-            }
         </>
     );
 }
