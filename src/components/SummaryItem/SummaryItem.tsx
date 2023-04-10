@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     item: {
         margin: `${theme.typography.pxToRem(8)} 0`,
         display: "flex",
+        alignItems: 'center',
         width: "100%",
     },
     imageContainer: {
@@ -14,11 +15,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     image: {
         width: `${theme.typography.pxToRem(125)}`,
-        height: `${theme.typography.pxToRem(125)}`,
+        height: `fit-content`,
         objectFit: "cover",
-        [theme.breakpoints.up(500)]: {
-            width: `100%`,
-        }
+        
     },
     itemInfo: {
         marginLeft: theme.typography.pxToRem(16),
