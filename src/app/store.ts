@@ -6,6 +6,8 @@ import {persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, R
 import productsGridSlice from '../features/ProductsGrid/productsGridSlice';
 import orderSummarySlice from '../features/OrderSummary/orderSummarySlice';
 import adminLoginSlice from '../features/AdminLogin/adminLoginSlice';
+import adminContentSlice from '../features/AdminContent/adminContentSlice';
+import ordersSlice from '../features/Orders/ordersSlice';
 
 const persistConfig = {
     key: 'root',
@@ -19,7 +21,9 @@ const reducer = {
     cart: persistedReducer,
     productsGrid: productsGridSlice,
     orderSummary: orderSummarySlice,
-    adminLogin: adminLoginSlice
+    adminLogin: adminLoginSlice,
+    adminContent: adminContentSlice,
+    orders: ordersSlice
 }
 
 const store = configureStore({
@@ -28,8 +32,8 @@ const store = configureStore({
     middleware: (getDefaultMiddleware) => {
         return getDefaultMiddleware({
             serializableCheck: {
-                ignoredActions: ['appContent/setAnchor', FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-                ignoredPaths: ['appContent.anchorEl']
+                ignoredActions: ['appContent/setAnchor', 'adminContent/setAnchor', FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+                ignoredPaths: ['appContent.anchorEl', 'adminContent.anchorEl']
             }
         })
     }
