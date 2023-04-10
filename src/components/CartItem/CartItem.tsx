@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     image: {
         width: `${theme.typography.pxToRem(75)}`,
+        height: "fit-content",
         [theme.breakpoints.up(420)]: {
             width: `100%`,
             marginRight: theme.typography.pxToRem(24),
