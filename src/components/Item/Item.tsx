@@ -34,7 +34,9 @@ const Item = ({ item }: IProductProps) => {
         sx={(theme) => ({
             display: "flex",
             flexDirection: "column",
-            alignItems: "center"
+            alignItems: "center",
+            height: "fit-content",
+            textAlign: "center"
         })}
         >
             <img 
