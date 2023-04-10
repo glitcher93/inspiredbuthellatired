@@ -4,7 +4,7 @@ import apiUrl from "../../utils/common";
 import { IOrder, RootState } from "../../utils/interfaces";
 
 const initialState = {
-    order: null,
+    order: {} as IOrder,
     orderPending: false,
     orderFailed: false
 };
@@ -24,7 +24,7 @@ const orderSummarySlice = createSlice({
     initialState,
     reducers: {
         clearOrder: (state) => {
-            state.order = null;
+            state.order = {} as IOrder;
         }
     },
     extraReducers: (builder) => {
