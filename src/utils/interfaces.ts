@@ -33,6 +33,7 @@ export interface IProductProps {
 export interface IOrder {
     id: string
     orderId: string
+    paymentStatus: string
     subtotal: number
     total: number
     shippingInfo: IShippingInfo
@@ -47,8 +48,8 @@ interface IShippingInfo {
     state: string
     postalCode: string
     phoneNumber: string
-    paymentStatus: string
     trackingNumber?: string
+    isFulfilled: boolean
     createdAt: string
 }
 
