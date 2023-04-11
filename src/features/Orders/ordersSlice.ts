@@ -55,14 +55,14 @@ export const addTrackingNumber = createAsyncThunk('orders/addTrackingNumber', as
     await axios.patch(`${apiUrl}/admin/orders/add-tracking/${id}`, {trackingNumber}, headers);
 })
 
-export const deleteOrder = createAsyncThunk('orders/addTrackingNumber', async ({token, id}: {token: string, id: string}) => {
+export const deleteOrder = createAsyncThunk('orders/deleteOrder', async ({token, id}: {token: string, id: string}) => {
     const headers = {
         headers: {
             authorization: `Bearer ${token}`
         }
     };
 
-    await axios.get(`${apiUrl}/admin/orders/delete-order/${id}`, headers);
+    await axios.delete(`${apiUrl}/admin/orders/delete-order/${id}`, headers);
 })
 
 const ordersSlice = createSlice({
