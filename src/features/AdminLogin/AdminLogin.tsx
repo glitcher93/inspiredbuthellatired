@@ -1,12 +1,13 @@
 import { Button, TextField, Theme, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { ChangeEvent, FormEvent } from 'react';
+import { ChangeEvent, FormEvent, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Logo from '../../assets/logo/logo-1.webp';
 import { AppDispatch } from '../../utils/interfaces';
-import { changeEmail, changePassword, login, selectEmail, selectEmailError, selectPassword, selectPasswordError, toggleEmailError, togglePasswordError } from './adminLoginSlice';
-import { useNavigate } from 'react-router-dom';
+import { changeEmail, changePassword, clearFields, login, selectEmail, selectEmailError, selectPassword, selectPasswordError, toggleEmailError, togglePasswordError } from './adminLoginSlice';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { ArrowBack } from '@mui/icons-material';
 
 const useStyles = makeStyles((theme: Theme) => ({
     main: {
@@ -24,6 +25,19 @@ const useStyles = makeStyles((theme: Theme) => ({
     form: {
         display: 'flex',
         flexDirection: 'column',
+        alignItems: 'center',
+        width: '100%'
+    },
+    link: {
+        display: 'flex',
+        alignItems: 'center',
+        marginTop: theme.typography.pxToRem(24),
+        textDecoration: "none",
+        color: "#000",
+        transition: "color 0.3s ease-in-out",
+        '&:hover': {
+            color: "#0000FF"
+        }
     }
 }))
 
@@ -83,6 +97,12 @@ const AdminLogin = () => {
             })
     }
 
+    useEffect(() => {
+        return () => {
+            dispatch(clearFields());
+        }
+    }, [dispatch])
+
     return (
         <main
         className={classes.main}
@@ -118,7 +138,9 @@ const AdminLogin = () => {
                 value={email}
                 error={emailError}
                 sx={(theme) => ({
-                    marginBottom: theme.typography.pxToRem(16)
+                    marginBottom: theme.typography.pxToRem(16),
+                    width: '90%',
+                    maxWidth: `400px`
                 })}
                 />
                 <TextField 
@@ -129,16 +151,35 @@ const AdminLogin = () => {
                 value={password}
                 error={passwordError}
                 sx={(theme) => ({
-                    marginBottom: theme.typography.pxToRem(16)
+                    marginBottom: theme.typography.pxToRem(16),
+                    width: '90%',
+                    maxWidth: `400px`
                 })}
                 />
                 <Button
                 variant='contained'
                 type='submit'
+                sx={(theme) => ({
+                    width: '90%',
+                    maxWidth: `400px`
+                })}
                 >
                     Login
                 </Button>
             </form>
+            <NavLink
+            to='/'
+            className={classes.link}
+            >
+                <ArrowBack />
+                <Typography
+                sx={(theme) => ({
+                    marginLeft: theme.typography.pxToRem(4)
+                })}
+                >
+                    Back to Store
+                </Typography>
+            </NavLink>
         </main>
     );
 }
