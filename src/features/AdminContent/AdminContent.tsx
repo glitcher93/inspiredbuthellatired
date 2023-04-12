@@ -9,9 +9,11 @@ import { AppDispatch } from "../../utils/interfaces";
 import { selectAnchor, selectAnchorEl, setAnchor } from "./adminContentSlice";
 import Logo from '../../assets/logo/logo-1.webp';
 import AdminLayout from "../../components/AdminLayout";
-import AdminOrders from "../../pages/AdminOrders";
+import { logout } from "../AdminLogin/adminLoginSlice";
 
 const Dashboard = lazy(() => import('../../components/Dashboard'));
+const AdminOrders = lazy(() => import("../../pages/AdminOrders"));
+const AdminProducts = lazy(() => import("../../pages/AdminProducts"));
 
 const useStyles = makeStyles((theme: Theme) => ({
     responsiveGutter: {
@@ -94,6 +96,10 @@ const AdminContent = () => {
         dispatch(setAnchor({anchor: false, anchorEl: null}));
     }
 
+    const handleLogout = () => {
+        dispatch(logout());
+    }
+
     return (
         <>
             <AppBar
@@ -158,15 +164,15 @@ const AdminContent = () => {
                                     </Typography>
                                 </NavLink>
                             </Popover>
-                            <Link
-                            href='/admin'
+                            <NavLink
+                            to='/admin'
                             >
                                 <img 
                                 src={Logo} 
                                 alt="Inspiredbuthellatired"
                                 className={classes.logo} 
                                 />
-                            </Link>
+                            </NavLink>
                             <nav
                             className={classes.nav}
                             >
@@ -201,6 +207,17 @@ const AdminContent = () => {
                             </nav>
                         </div>
                     </div>
+                    <div>
+                        <NavLink
+                        to='/login'
+                        className={classes.link}
+                        onClick={handleLogout}
+                        >
+                            <Typography>
+                                Logout
+                            </Typography>
+                        </NavLink>
+                    </div>
                 </Toolbar>
             </AppBar>
             <AdminLayout>
@@ -213,7 +230,7 @@ const AdminContent = () => {
                     />
                     <Route path="products" element={
                         <Suspense>
-
+                            <AdminProducts />
                         </Suspense>
                     } 
                     />
