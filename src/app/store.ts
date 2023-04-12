@@ -7,6 +7,7 @@ import productsGridSlice from '../features/ProductsGrid/productsGridSlice';
 import orderSummarySlice from '../features/OrderSummary/orderSummarySlice';
 import adminLoginSlice from '../features/AdminLogin/adminLoginSlice';
 import adminContentSlice from '../features/AdminContent/adminContentSlice';
+import adminProductsGridSlice from '../features/AdminProductsGrid/adminProductsGridSlice';
 import ordersSlice from '../features/Orders/ordersSlice';
 
 const persistConfig = {
@@ -23,7 +24,8 @@ const reducer = {
     orderSummary: orderSummarySlice,
     adminLogin: adminLoginSlice,
     adminContent: adminContentSlice,
-    orders: ordersSlice
+    orders: ordersSlice,
+    adminProductsGrid: adminProductsGridSlice
 }
 
 const store = configureStore({
