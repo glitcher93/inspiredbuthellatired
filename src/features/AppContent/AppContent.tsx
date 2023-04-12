@@ -211,15 +211,15 @@ const AppContent = () => {
                                     </Typography>
                                 </NavLink>
                             </Popover>
-                            <Link
-                            href='/'
+                            <NavLink
+                            to='/'
                             >
                                 <img 
                                 src={Logo} 
                                 alt="Inspiredbuthellatired"
                                 className={classes.logo} 
                                 />
-                            </Link>
+                            </NavLink>
                             <nav
                             className={classes.nav}
                             >
