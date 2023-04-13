@@ -213,7 +213,14 @@ const AdminContent = () => {
                         className={classes.link}
                         onClick={handleLogout}
                         >
-                            <Typography>
+                            <Typography
+                            sx={(theme) => ({
+                                fontSize: theme.typography.pxToRem(18),
+                                [theme.breakpoints.up('md')]: {
+                                    fontSize: theme.typography.pxToRem(24)
+                                }
+                            })}
+                            >
                                 Logout
                             </Typography>
                         </NavLink>
