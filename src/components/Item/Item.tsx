@@ -41,7 +41,7 @@ const Item = ({ item }: IProductProps) => {
         >
             <img 
             src={item.image} 
-            alt="test"
+            alt={item.title}
             className={classes.image} 
             />
             <Typography
