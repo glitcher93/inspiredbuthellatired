@@ -1,10 +1,15 @@
 import { Button, Theme, Typography } from "@mui/material";
 import AdminProductsGrid from "../../features/AdminProductsGrid";
-import { useSelector } from "react-redux";
-import { selectItems } from "../../features/ProductsGrid/productsGridSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import AdminItem from "../../components/AdminItem";
 import { Add } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
+import { AppDispatch } from "../../utils/interfaces";
+import { clearItems, getProducts, openModal, selectItem, selectItems } from "../../features/AdminProductsGrid/adminProductsGridSlice";
+import AddProductModal from "../../components/AddProductModal";
+import EditProductModal from "../../components/EditProductModal";
+import DeleteProductModal from "../../components/DeleteProductModal";
 
 const useStyles = makeStyles((theme: Theme) => ({
     headerContainer: {
@@ -17,25 +22,26 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const AdminProducts = () => {
 
-    // const items = useSelector(selectItems);
+    const dispatch = useDispatch<AppDispatch>();
 
-    const classes = useStyles()
+    const items = useSelector(selectItems);
+    const item = useSelector(selectItem);
 
-    const items = [
-        {
-            id: 1,
-            title: 'test',
-            image: 'https://picsum.photos/500/500',
-            priceInCents: 100,
-            inStock: true,
-            type: 'Painting',
-            size: "5' x 5'"
-        }
-    ]
+    const classes = useStyles();
+
+    const token = localStorage.getItem("token")?.split(' ')[1]!;
 
     const handleOpen = (modal: string) => {
-
+        dispatch(openModal({modal}))
     }
+
+    useEffect(() => {
+        dispatch(getProducts({token}))
+
+        return () => {
+            dispatch(clearItems())
+        }
+    }, [dispatch])
 
     return (
         <section>
@@ -84,10 +90,14 @@ const AdminProducts = () => {
             <AdminProductsGrid>
                 {items.map(item => (
                     <AdminItem
+                    key={item.id}
                     item={item} 
                     />
                 ))}
             </AdminProductsGrid>
+            <AddProductModal />
+            <EditProductModal item={item} />
+            <DeleteProductModal item={item} />
         </section>
     );
 }
