@@ -6,8 +6,9 @@ import Logo from '../../assets/logo/logo-1.webp';
 import { AppDispatch } from '../../utils/interfaces';
 import { changeEmail, changePassword, clearFields, login, selectEmail, selectEmailError, selectPassword, selectPasswordError, toggleEmailError, togglePasswordError } from './adminLoginSlice';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { ArrowBack } from '@mui/icons-material';
+import Swal from 'sweetalert2';
+import 'sweetalert2/src/sweetalert2.scss';
 
 const useStyles = makeStyles((theme: Theme) => ({
     main: {
@@ -81,19 +82,30 @@ const AdminLogin = () => {
             return;
         }
 
-        if (!email && !password) {
-            dispatch(toggleEmailError());
-            dispatch(togglePasswordError());
-            return    
+        if (!email || !password) {
+            return;    
         }
 
         dispatch(login({email, password}))
+            .unwrap()
             .then(() => {
-                toast.success("Login Successful!")
-                navigate('/admin', { replace: true })
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Login successful!',
+                    text: "Redirecting...",
+                    timer: 1500,
+                    showConfirmButton: false
+                }).then(() => {
+                    dispatch(clearFields());
+                    navigate('/admin', { replace: true })
+                })
             })
             .catch((err) => {
-                toast.error('Login Unsuccessful')
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Access Denied',
+                    text: "Incorrect email and/or password"
+                })
             })
     }
 

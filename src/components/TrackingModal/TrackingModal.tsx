@@ -5,7 +5,8 @@ import { makeStyles } from "@mui/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, IOrder } from "../../utils/interfaces";
 import { ChangeEvent, FormEvent } from "react";
-import { toast } from "react-toastify";
+import Swal from 'sweetalert2';
+import 'sweetalert2/src/sweetalert2.scss';
 
 const useStyles = makeStyles((theme: Theme) => ({
     form: {
@@ -46,13 +47,27 @@ const TrackingModal = ({order}: {order: IOrder}) => {
         }
 
         dispatch(addTrackingNumber({token, id: order.id, trackingNumber}))
+            .unwrap()
             .then(() => {
                 handleClose("tracking");
-                toast.success("Tracking Number Added!");
-                dispatch(getAllOrders({token}));
+                handleClose("order");
+                dispatch(getAllOrders({token}))
+                    .then(() => {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Tracking Number Added!',
+                            timer: 2000,
+                            showConfirmButton: false
+                        })
+                    })
+                    .catch(err => console.log(err))
             })
             .catch((err) => {
-                toast.error("Something went wrong!")
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Something went wrong',
+                    text: `${err.message}`
+                })
             })
     }
 
@@ -96,6 +111,7 @@ const TrackingModal = ({order}: {order: IOrder}) => {
                 </Typography>
                 <form
                 method="PATCH"
+                action={`/admin/orders/add-tracking/${order.id}`}
                 className={classes.form}
                 onSubmit={handleSubmit}
                 >

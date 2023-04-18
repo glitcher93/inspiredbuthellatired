@@ -2,9 +2,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeModal, deleteOrder, getAllOrders, selectDeleteModalStatus } from "../../features/Orders/ordersSlice";
 import { AppDispatch, IOrder } from "../../utils/interfaces";
 import { makeStyles } from "@mui/styles";
-import { toast } from "react-toastify";
 import { Box, Button, Modal, Theme, Typography } from "@mui/material";
 import { Cancel, Close, Delete } from "@mui/icons-material";
+import Swal from 'sweetalert2';
+import 'sweetalert2/src/sweetalert2.scss';
 
 const useStyles = makeStyles((theme: Theme) => ({
     deleteButtons: {
@@ -30,13 +31,23 @@ const DeleteOrderModal = ({order}: {order: IOrder}) => {
 
     const handleDelete = () => {
         dispatch(deleteOrder({token, id: order.id}))
+            .unwrap()
             .then(() => {
                 handleClose("delete");
-                toast.success("Order Successfully Deleted!");
                 dispatch(getAllOrders({token}))
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Order deleted!',
+                        timer: 2000,
+                        showConfirmButton: false
+                    })
             })
             .catch(() => {
-                toast.error("Order is not fulilled and can't be deleted")
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Something went wrong',
+                    text: 'The order you are trying to delete likely has not been fulfilled and does not have a tracking number associated with it.'
+                })
             })
     }
 
