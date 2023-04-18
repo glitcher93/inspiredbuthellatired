@@ -355,3 +355,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+.swal2-popup {
+  font-family: "Nunito Sans", sans-serif;
+}
