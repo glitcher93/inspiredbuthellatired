@@ -3,7 +3,7 @@ import { ILayoutProps } from "../../utils/interfaces";
 
 const AdminProductsGrid = ({children}: ILayoutProps) => {
     return (
-        <Grid container spacing={2}>
+        <Grid container spacing={8}>
             {children}
         </Grid>
     );
