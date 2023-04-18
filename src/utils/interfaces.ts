@@ -17,7 +17,7 @@ export interface ICartItem {
 }
 
 export interface IItem {
-    id: number 
+    id: string 
     priceInCents: number 
     title: string 
     size: string 
