@@ -8,9 +8,12 @@ const initialState = {
     modalStatus: false,
     trackingModalStatus: false,
     deleteModalStatus: false,
+    cancelModalStatus: false,
     order: {} as IOrder,
     trackingNumber: "",
+    serviceProvider: "",
     trackingError: false,
+    serviceProviderError: false,
     ordersPending: false,
     ordersFailed: false,
     orderPending: false,
@@ -45,14 +48,14 @@ export const getAllOrders = createAsyncThunk('orders/getAllOrders', async ({toke
     return data;
 })
 
-export const addTrackingNumber = createAsyncThunk('orders/addTrackingNumber', async ({token, id, trackingNumber}: {token: string, id: string, trackingNumber: string}) => {
+export const addTrackingNumber = createAsyncThunk('orders/addTrackingNumber', async ({token, id, trackingNumber, serviceProvider}: {token: string, id: string, trackingNumber: string, serviceProvider: string}) => {
     const headers = {
         headers: {
             authorization: `Bearer ${token}`
         }
     };
 
-    await axios.patch(`${apiUrl}/admin/orders/add-tracking/${id}`, {trackingNumber}, headers);
+    await axios.patch(`${apiUrl}/admin/orders/add-tracking/${id}`, {trackingNumber, serviceProvider}, headers);
 })
 
 export const deleteOrder = createAsyncThunk('orders/deleteOrder', async ({token, id}: {token: string, id: string}) => {
@@ -63,6 +66,20 @@ export const deleteOrder = createAsyncThunk('orders/deleteOrder', async ({token,
     };
 
     await axios.delete(`${apiUrl}/admin/orders/delete-order/${id}`, headers);
+})
+
+export const cancelOrder = createAsyncThunk('orders/cancelOrder', async ({token, paymentIntentId}: {token: string, paymentIntentId: string}) => {
+    const headers = {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    };
+
+    const requestBody = {
+        paymentIntentId
+    }
+
+    await axios.post(`${apiUrl}/admin/orders/cancel-order`, requestBody, headers);
 })
 
 const ordersSlice = createSlice({
@@ -86,6 +103,9 @@ const ordersSlice = createSlice({
                 case 'delete':
                     state.deleteModalStatus = true;
                     break;
+                case 'cancel':
+                    state.cancelModalStatus = true;
+                    break;
                 default:
                     break;
             }
@@ -104,19 +124,46 @@ const ordersSlice = createSlice({
                 case 'delete':
                     state.deleteModalStatus = false;
                     break;
+                case 'cancel':
+                    state.cancelModalStatus = false;
+                    break;
                 default:
                     break;
             }
         },
-        changeTrackingField: (state, action) => {
-            state.trackingNumber = action.payload;
-            state.trackingError = false;
+        changeField: (state, action) => {
+            const { name, value } = action.payload;
+
+            switch (name) {
+                case 'trackingNumber':
+                    state.trackingNumber = value;
+                    state.trackingError = false;
+                    break;
+                case 'serviceProvider':
+                    state.serviceProvider = value;
+                    state.serviceProviderError = false;
+                    break;
+                default:
+                    break
+            }
         },
-        clearTrackingField: (state) => {
+        clearFields: (state) => {
             state.trackingNumber = "";
+            state.serviceProvider = "";
         },
-        toggleError: (state) => {
-            state.trackingError = true;
+        toggleError: (state, action) => {
+            const { name } = action.payload;
+            
+            switch (name) {
+                case 'trackingNumber':
+                    state.trackingError = true;
+                    break;
+                case 'serviceProvider':
+                    state.serviceProviderError = true;
+                    break;
+                default:
+                    break
+            }
         }
     },
     extraReducers: (builder) => {
@@ -165,10 +212,16 @@ export const selectTrackingModalStatus = (state: RootState) => state.orders.trac
 
 export const selectDeleteModalStatus = (state: RootState) => state.orders.deleteModalStatus;
 
+export const selectCancelModalStatus = (state: RootState) => state.orders.cancelModalStatus;
+
 export const selectTrackingNumber = (state: RootState) => state.orders.trackingNumber;
 
 export const selectTrackingError = (state: RootState) => state.orders.trackingError;
 
-export const { clearOrders, openModal, closeModal, changeTrackingField, clearTrackingField, toggleError } = ordersSlice.actions;
+export const selectServiceProvider = (state: RootState) => state.orders.serviceProvider;
+
+export const selectServiceProviderError = (state: RootState) => state.orders.serviceProviderError;
+
+export const { clearOrders, openModal, closeModal, changeField, clearFields, toggleError } = ordersSlice.actions;
 
 export default ordersSlice.reducer;
