@@ -1,6 +1,6 @@
 import { Close } from "@mui/icons-material";
 import { Box, Button, Modal, TextField, Theme, Typography } from "@mui/material";
-import { addTrackingNumber, changeTrackingField, clearTrackingField, closeModal, getAllOrders, selectTrackingModalStatus, selectTrackingNumber, toggleError } from "../../features/Orders/ordersSlice";
+import { addTrackingNumber, changeField, clearFields, closeModal, getAllOrders, selectServiceProvider, selectServiceProviderError, selectTrackingError, selectTrackingModalStatus, selectTrackingNumber, toggleError } from "../../features/Orders/ordersSlice";
 import { makeStyles } from "@mui/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, IOrder } from "../../utils/interfaces";
@@ -11,8 +11,7 @@ import 'sweetalert2/src/sweetalert2.scss';
 const useStyles = makeStyles((theme: Theme) => ({
     form: {
         display: 'flex',
-        alignItems: 'center',
-        marginTop: theme.typography.pxToRem(50)
+        flexDirection: 'column'
     }
 }))
 
@@ -24,29 +23,39 @@ const TrackingModal = ({order}: {order: IOrder}) => {
 
     const trackingModalStatus = useSelector(selectTrackingModalStatus);
     const trackingNumber = useSelector(selectTrackingNumber);
+    const trackingNumberError = useSelector(selectTrackingError)
+    const serviceProvider = useSelector(selectServiceProvider);
+    const serviceProviderError = useSelector(selectServiceProviderError);
 
     const token = localStorage.getItem("token")?.split(' ')[1]!;
 
     const handleClose = (modal: string) => {
         dispatch(closeModal({modal}));
-        dispatch(clearTrackingField());
+        dispatch(clearFields());
     }
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const { value } = e.target;
+        const { name, value } = e.target;
 
-        dispatch(changeTrackingField(value))
+        dispatch(changeField({name, value}))
     }
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (!trackingNumber) {
-            dispatch(toggleError())
+            dispatch(toggleError({name: "trackingNumber"}))
+        }
+
+        if (!serviceProvider) {
+            dispatch(toggleError({name: "serviceProvider"}))
+        }
+
+        if (!trackingNumber || !serviceProvider) {
             return;
         }
 
-        dispatch(addTrackingNumber({token, id: order.id, trackingNumber}))
+        dispatch(addTrackingNumber({token, id: order.id, trackingNumber, serviceProvider}))
             .unwrap()
             .then(() => {
                 handleClose("tracking");
@@ -63,8 +72,10 @@ const TrackingModal = ({order}: {order: IOrder}) => {
                     .catch(err => console.log(err))
             })
             .catch((err) => {
+                handleClose('tracking');
+                handleClose('order');
                 Swal.fire({
-                    icon: 'success',
+                    icon: 'error',
                     title: 'Something went wrong',
                     text: `${err.message}`
                 })
@@ -84,7 +95,7 @@ const TrackingModal = ({order}: {order: IOrder}) => {
                 transform: 'translate(-50%, -50%)',
                 backgroundColor: "#FFF",
                 width: '85%',
-                height: theme.typography.pxToRem(250),
+                height: theme.typography.pxToRem(275),
                 display: "flex",
                 flexDirection: "column",
                 padding: theme.typography.pxToRem(16),
@@ -111,7 +122,6 @@ const TrackingModal = ({order}: {order: IOrder}) => {
                 </Typography>
                 <form
                 method="PATCH"
-                action={`/admin/orders/add-tracking/${order.id}`}
                 className={classes.form}
                 onSubmit={handleSubmit}
                 >
@@ -120,13 +130,26 @@ const TrackingModal = ({order}: {order: IOrder}) => {
                     name="trackingNumber"
                     value={trackingNumber}
                     onChange={handleChange}
+                    error={trackingNumberError}
                     sx={(theme) => ({
-                        marginRight: theme.typography.pxToRem(16),
-                        width: '60%'
+                        margin: `${theme.typography.pxToRem(16)} 0`,
+                        width: '100%'
+                    })}
+                    />
+                    <TextField 
+                    label="Service Provider"
+                    name="serviceProvider"
+                    value={serviceProvider}
+                    onChange={handleChange}
+                    error={serviceProviderError}
+                    sx={(theme) => ({
+                        marginBottom: theme.typography.pxToRem(16),
+                        width: '100%'
                     })}
                     />
                     <Button
                     variant="contained"
+                    type="submit"
                     sx={(theme) => ({
                         height: '100%'
                     })}
