@@ -2,7 +2,7 @@ import { Box, Button, Fade, IconButton, Modal, Theme, Typography } from "@mui/ma
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal, openModal, selectModalStatus } from "../../features/Orders/ordersSlice";
 import { AppDispatch, IOrder } from "../../utils/interfaces";
-import { Add, Close, Delete } from "@mui/icons-material";
+import { Add, Cancel, Close, Delete } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
 import SummaryItem from "../SummaryItem";
 import clsx from "clsx";
@@ -54,6 +54,9 @@ const useStyles = makeStyles((theme: Theme) => ({
         [theme.breakpoints.up('md')]: {
             display: "flex"
         }
+    },
+    button: {
+        display: "flex"
     }
 }))
 
@@ -432,6 +435,30 @@ const OrderModal = ({ order }: {order: IOrder}) => {
                                 </div>
                             </div>
                         </div>
+                        <Button
+                        variant="contained"
+                        sx={(theme) => ({
+                            display: 'flex',
+                            alignItems: 'center',
+                            backgroundColor: "#BB0000",
+                            transition: 'background-color 0.3s',
+                            marginTop: theme.typography.pxToRem(16),
+                            '&:hover': {
+                                backgroundColor: "#DD0000"
+                            }
+                        })}
+                        onClick={() => handleOpen("cancel")}
+                        >
+                            <Cancel />
+                            <Typography
+                            sx={(theme) => ({
+                                marginLeft: theme.typography.pxToRem(4),
+                                lineHeight: 1
+                            })}
+                            >
+                                Cancel Order
+                            </Typography>
+                        </Button>
                     </Box>
                 </Fade>
             </Modal>
