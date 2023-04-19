@@ -33,6 +33,7 @@ export interface IProductProps {
 export interface IOrder {
     id: string
     orderId: string
+    paymentIntentId?: string
     paymentStatus: string
     subtotal: number
     total: number
