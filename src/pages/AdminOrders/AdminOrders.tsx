@@ -7,6 +7,7 @@ import Orders from "../../features/Orders";
 import OrderModal from "../../components/OrderModal/OrderModal";
 import TrackingModal from "../../components/TrackingModal";
 import DeleteOrderModal from "../../components/DeleteOrderModal";
+import CancelOrderModal from "../../components/CancelOrderModal";
 
 const AdminOrders = () => {
 
@@ -39,6 +40,7 @@ const AdminOrders = () => {
                 <OrderModal order={order} />
                 <TrackingModal order={order} />
                 <DeleteOrderModal order={order} />
+                <CancelOrderModal order={order} />
             </section>
         </>
     );
