@@ -114,6 +114,7 @@ const EditProductModal = ({item}: {item: IItem}) => {
                     .catch(err => console.log(err))
             })
             .catch(() => {
+                handleClose('edit');
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',

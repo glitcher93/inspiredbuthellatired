@@ -49,6 +49,7 @@ const DeleteProductModal = ({item}: {item: IItem}) => {
                     })
             })
             .catch(() => {
+                handleClose('delete');
                 Swal.fire({
                     icon: 'error',
                     title: 'Something went wrong!',
