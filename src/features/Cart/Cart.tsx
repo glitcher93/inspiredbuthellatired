@@ -26,6 +26,13 @@ const useStyles = makeStyles((theme: Theme) => ({
         display: 'flex',
         marginTop: `${theme.typography.pxToRem(36)}`,
         alignSelf: 'flex-end',
+    },
+    formDiv: {
+        display: "flex",
+        flexDirection: "column"
+    },
+    form: {
+        alignSelf: "flex-end"
     }
 }));
 
@@ -113,29 +120,41 @@ const Cart = () => {
             </div>
             }
             {cart.length >= 1 &&
-            <form
-            action="/checkout"
-            method="POST"
-            onSubmit={handleSubmit}
+            <div
+            className={classes.formDiv}
             >
-                <Button
-                sx={(theme) => ({
-                    backgroundColor: "#0000BB",
-                    color: "#FFF",
-                    padding: 1,
-                    transition: 'background-color 0.3s',
-                    marginTop: theme.typography.pxToRem(24),
-                    '&:hover': {
-                        backgroundColor: "#0000FF",
-                    },
-                    fontSize: theme.typography.pxToRem(18),
-                })}
-                type="submit"
+                <form
+                action="/checkout"
+                method="POST"
+                onSubmit={handleSubmit}
+                className={classes.form}
                 >
-                    Checkout
-                </Button>
-            </form>
-            
+                    <Button
+                    sx={(theme) => ({
+                        backgroundColor: "#0000BB",
+                        color: "#FFF",
+                        padding: 1,
+                        transition: 'background-color 0.3s',
+                        marginTop: theme.typography.pxToRem(24),
+                        '&:hover': {
+                            backgroundColor: "#0000FF",
+                        },
+                        fontSize: theme.typography.pxToRem(18),
+                    })}
+                    type="submit"
+                    >
+                        Checkout
+                    </Button>
+                </form>
+                <Typography
+                sx={(theme) => ({
+                    marginTop: theme.typography.pxToRem(16),
+                    fontWeight: 600
+                })}
+                >
+                    * Please be advised that shipping costs are not included in the total purchase price. Shipping will be paid upon receiving your order.
+                </Typography>
+            </div>
             }
         </div>
     );
