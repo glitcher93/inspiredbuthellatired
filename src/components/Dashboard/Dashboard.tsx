@@ -5,6 +5,9 @@ import { AppDispatch } from "../../utils/interfaces";
 import { useEffect } from "react";
 import { clearOrders, getRecentOrders, selectOrder, selectOrders } from "../../features/Orders/ordersSlice";
 import OrderModal from "../OrderModal/OrderModal";
+import TrackingModal from "../TrackingModal";
+import DeleteOrderModal from "../DeleteOrderModal";
+import CancelOrderModal from "../CancelOrderModal";
 
 const Dashboard = () => {
 
@@ -47,8 +50,11 @@ const Dashboard = () => {
             >
                 Welcome to your dashboard!
             </Typography>
-            <Orders orders={orders} />
+            {orders.length > 0 ? <Orders orders={orders} /> : <Typography>No Orders right now!</Typography>}
             <OrderModal order={order} />
+            <TrackingModal order={order} />
+            <DeleteOrderModal order={order} />
+            <CancelOrderModal order={order} />
         </section>
     );
 }
