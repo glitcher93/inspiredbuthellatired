@@ -34,6 +34,7 @@ const DeleteOrderModal = ({order}: {order: IOrder}) => {
             .unwrap()
             .then(() => {
                 handleClose("delete");
+                handleClose("order");
                 dispatch(getAllOrders({token}))
                     Swal.fire({
                         icon: 'success',
@@ -43,6 +44,8 @@ const DeleteOrderModal = ({order}: {order: IOrder}) => {
                     })
             })
             .catch(() => {
+                handleClose("delete");
+                handleClose("order");
                 Swal.fire({
                     icon: 'error',
                     title: 'Something went wrong',
