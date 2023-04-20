@@ -3,6 +3,7 @@ import { makeStyles } from "@mui/styles";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../features/Cart/cartSlice";
 import { AppDispatch, ICartItem, IProductProps } from "../../utils/interfaces";
+import Swal from "sweetalert2";
 
 const useStyles = makeStyles((theme: Theme) => ({
     image: {
@@ -23,6 +24,13 @@ const Item = ({ item }: IProductProps) => {
 
     const addCartItem = (item: ICartItem) => {
         dispatch(addToCart(item));
+        Swal.fire({
+            icon: 'success',
+            title: 'Item added to cart',
+            timer: 2000,
+            showConfirmButton: false,
+            position: 'bottom-left'
+        });
     }
 
     return (
