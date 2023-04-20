@@ -6,7 +6,7 @@ export interface ILayoutProps {
 }
 
 export interface ICartItem {
-    id: number
+    id: string
     title: string
     priceInCents: number
     image: string
