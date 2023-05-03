@@ -111,6 +111,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     cartFlex: {
         display: "flex",
         alignItems: "center",
+    },
+    loading: {
+        fontFamily: 'Abel',
+        fontWeight: 600
     }
 }), {index: 1});
 
@@ -286,7 +290,7 @@ const AppContent = () => {
                     <Route 
                     path='/*' 
                     element={
-                        <Suspense fallback={<div>Loading...</div>}>
+                        <Suspense fallback={<div className={classes.loading}>Loading...</div>}>
                             <Landing />
                         </Suspense>
                     } 
@@ -294,7 +298,7 @@ const AppContent = () => {
                     <Route 
                     path='about-me' 
                     element={
-                    <Suspense fallback={<div>Loading...</div>}>
+                    <Suspense fallback={<div className={classes.loading}>Loading...</div>}>
                         <AboutMe />
                     </Suspense>
                     } 
@@ -302,13 +306,13 @@ const AppContent = () => {
                     <Route 
                     path='products' 
                     element={
-                        <Suspense fallback={<div>Loading...</div>}>
+                        <Suspense fallback={<div className={classes.loading}>Loading...</div>}>
                             <Products />
                         </Suspense>
                     } 
                     >
                         <Route index element={
-                            <Suspense fallback={<div>Loading...</div>}>
+                            <Suspense fallback={<div className={classes.loading}>Loading...</div>}>
                                 <All />
                             </Suspense>
                         } 
@@ -317,7 +321,7 @@ const AppContent = () => {
                         <Route 
                         path='all' 
                         element={
-                            <Suspense fallback={<div>Loading...</div>}>
+                            <Suspense fallback={<div className={classes.loading}>Loading...</div>}>
                                 <All />
                             </Suspense>
                         } 
@@ -326,7 +330,7 @@ const AppContent = () => {
                         <Route 
                         path='paintings' 
                         element={
-                            <Suspense fallback={<div>Loading...</div>}>
+                            <Suspense fallback={<div className={classes.loading}>Loading...</div>}>
                                 <Paintings />
                             </Suspense>
                         } 
@@ -334,14 +338,14 @@ const AppContent = () => {
                         <Route 
                         path='prints' 
                         element={
-                            <Suspense fallback={<div>Loading...</div>}>
+                            <Suspense fallback={<div className={classes.loading}>Loading...</div>}>
                                 <Prints />
                             </Suspense>
                         } 
                         />
                     </Route>
                     <Route path='success' element={
-                        <Suspense fallback={<div>Loading...</div>}>
+                        <Suspense fallback={<div className={classes.loading}>Loading...</div>}>
                             <Success />
                         </Suspense>
                     }
