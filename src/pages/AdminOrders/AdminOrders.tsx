@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { AppDispatch } from "../../utils/interfaces";
 import { Typography } from "@mui/material";
 import Orders from "../../features/Orders";
-import OrderModal from "../../components/OrderModal/OrderModal";
+import OrderModal from "../../components/OrderModal";
 import TrackingModal from "../../components/TrackingModal";
 import DeleteOrderModal from "../../components/DeleteOrderModal";
 import CancelOrderModal from "../../components/CancelOrderModal";
