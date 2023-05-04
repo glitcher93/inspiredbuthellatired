@@ -13,6 +13,9 @@ const useStyles = makeStyles((theme: Theme) => ({
         [theme.breakpoints.up('md')]: {
             width: "100%",
         }
+    },
+    popup: {
+        fontFamily: '"Nunito Sans", sans-serif'
     }
 }))
 
@@ -28,6 +31,9 @@ const Item = ({ item }: IProductProps) => {
             icon: 'success',
             title: 'Item added to cart',
             timer: 2000,
+            customClass: {
+                popup: classes.popup
+            },
             showConfirmButton: false,
             position: 'bottom-left'
         });

@@ -12,6 +12,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     form: {
         display: 'flex',
         flexDirection: 'column'
+    },
+    popup: {
+        fontFamily: '"Nunito Sans", sans-serif'
     }
 }))
 
@@ -65,6 +68,9 @@ const TrackingModal = ({order}: {order: IOrder}) => {
                         Swal.fire({
                             icon: 'success',
                             title: 'Tracking Number Added!',
+                            customClass: {
+                                popup: classes.popup
+                            },
                             timer: 2000,
                             showConfirmButton: false
                         })

@@ -27,6 +27,9 @@ const useStyles = makeStyles((theme: Theme) => ({
                 marginBottom: theme.typography.pxToRem(16)
             }
         }
+    },
+    popup: {
+        fontFamily: '"Nunito Sans", sans-serif'
     }
 }))
 
@@ -107,6 +110,9 @@ const EditProductModal = ({item}: {item: IItem}) => {
                         Swal.fire({
                             icon: 'success',
                             title: 'Product Edited!',
+                            customClass: {
+                                popup: classes.popup
+                            },
                             timer: 2000,
                             showConfirmButton: false
                         })

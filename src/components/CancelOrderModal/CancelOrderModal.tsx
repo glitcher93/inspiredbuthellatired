@@ -12,6 +12,9 @@ const useStyles = makeStyles((theme: Theme) => ({
         display: 'flex',
         alignSelf: 'center',
         margin: `${theme.typography.pxToRem(36)} 0`
+    },
+    popup: {
+        fontFamily: '"Nunito Sans", sans-serif'
     }
 }))
 
@@ -40,6 +43,9 @@ const CancelOrderModal = ({order}: {order: IOrder}) => {
                         Swal.fire({
                             icon: "success",
                             title: "Order Cancelled!",
+                            customClass: {
+                                popup: classes.popup
+                            },
                             timer: 2000,
                             showConfirmButton: false
                         })
