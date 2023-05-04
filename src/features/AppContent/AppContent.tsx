@@ -1,5 +1,5 @@
 import { Menu, ShoppingCartOutlined } from "@mui/icons-material";
-import { AppBar, Avatar, Drawer, IconButton, Link, Popover, Theme, Toolbar, Typography } from "@mui/material";
+import { AppBar, Avatar, Drawer, IconButton, Popover, Theme, Toolbar, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import clsx from "clsx";
 import { MouseEvent, lazy, Suspense } from "react";
