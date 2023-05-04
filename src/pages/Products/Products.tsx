@@ -1,6 +1,7 @@
 import { Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import clsx from "clsx";
+import { useEffect } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 
 
@@ -34,6 +35,10 @@ const useStyles = makeStyles((theme: Theme) => ({
 const Products = () => {
 
     const classes = useStyles();
+
+    useEffect(() => {
+        document.title = "All Products | Inspiredbuthellatired"
+    }, [])
 
     return ( 
         <section>

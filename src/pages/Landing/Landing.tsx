@@ -5,6 +5,7 @@ import Featured from '../../components/Featured';
 import Hero from '../../components/Hero';
 import Alyssa from '../../assets/images/alyssa-1.webp';
 import Weep from '../../assets/images/weepforme.webp';
+import { useEffect } from 'react';
 
 const useStyles = makeStyles((theme: Theme) => ({
     img: {
@@ -73,6 +74,10 @@ const useStyles = makeStyles((theme: Theme) => ({
 const Landing = () => {
 
     const classes = useStyles();
+
+    useEffect(() => {
+        document.title = "Home | Inspiredbuthellatired";
+    }, [])
 
     return ( 
         <>

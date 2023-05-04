@@ -46,6 +46,7 @@ const Success = () => {
             dispatch(getOrder({orderId: orderNumber!}));
             dispatch(clearCart());
         }
+        document.title = "Thank You For Your Purchase | Inspiredbuthellatired";
     }, [])
 
     return (

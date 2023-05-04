@@ -110,6 +110,8 @@ const AdminLogin = () => {
     }
 
     useEffect(() => {
+        document.title = "Admin Login | Inspiredbuthellatired";
+
         return () => {
             dispatch(clearFields());
         }

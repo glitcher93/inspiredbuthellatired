@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getAllOrders, selectOrder, selectOrders } from "../../features/Orders/ordersSlice";
+import { clearOrders, getAllOrders, selectOrder, selectOrders } from "../../features/Orders/ordersSlice";
 import { useEffect } from "react";
 import { AppDispatch } from "../../utils/interfaces";
 import { Typography } from "@mui/material";
@@ -19,7 +19,12 @@ const AdminOrders = () => {
     const token = localStorage.getItem('token')?.split(' ')[1]!;
     
     useEffect(() => {
-        dispatch(getAllOrders({token}))
+        dispatch(getAllOrders({token}));
+        document.title = "Order Management | Inspiredbuthellatired";
+
+        return () => {
+            dispatch(clearOrders());
+        }
     }, [dispatch]);
 
     return (

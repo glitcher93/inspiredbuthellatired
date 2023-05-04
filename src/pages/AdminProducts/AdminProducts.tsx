@@ -38,6 +38,8 @@ const AdminProducts = () => {
     useEffect(() => {
         dispatch(getProducts({token}))
 
+        document.title = "Product Management | Inspiredbuthellatired";
+
         return () => {
             dispatch(clearItems())
         }

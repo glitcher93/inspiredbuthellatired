@@ -14,6 +14,7 @@ const Prints = () => {
 
     useEffect(() => {
         dispatch(getPrints());
+        document.title = "Prints | Inspiredbuthellatired"
 
         return () => {
             dispatch(clearItems());

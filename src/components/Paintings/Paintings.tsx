@@ -15,6 +15,7 @@ const Paintings = () => {
 
     useEffect(() => {
         dispatch(getPaintings());
+        document.title = "Paintings | Inspiredbuthellatired"
     
         return () => {
             dispatch(clearItems())

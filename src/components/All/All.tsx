@@ -14,6 +14,7 @@ const All = () => {
 
     useEffect(() => {
         dispatch(getAllItems())
+        document.title = "All Products | Inspiredbuthellatired";
 
         return () => {
             dispatch(clearItems())

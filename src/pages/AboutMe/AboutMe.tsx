@@ -2,6 +2,7 @@ import { Link, Theme, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import clsx from "clsx";
 import Alyssa from "../../assets/images/alyssa-2.webp";
+import { useEffect } from "react";
 
 const useStyles = makeStyles((theme: Theme) => ({
     imgContainer: {
@@ -55,6 +56,10 @@ const useStyles = makeStyles((theme: Theme) => ({
 const AboutMe = () => {
 
     const classes = useStyles();
+
+    useEffect(() => {
+        document.title = "About Me | Inspiredbuthellatired";
+    }, [])
 
     return ( 
         <section>
