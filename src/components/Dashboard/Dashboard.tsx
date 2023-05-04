@@ -20,6 +20,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         dispatch(getRecentOrders({token}))
+        document.title = "Dashboard | Insiredbuthellatired";
 
         return () => {
             dispatch(clearOrders());
