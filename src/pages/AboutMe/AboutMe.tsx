@@ -173,7 +173,7 @@ const AboutMe = () => {
                             marginBottom: theme.typography.pxToRem(16),
                         })}
                         >
-                            She chose the name "Inspiredbuthellatired" because some days she can be filled with creative ideas that need to be painted right away. Unfortunately, she tended to  overthink if anyone will even like her art and a brick wall was always hit. Using this alterego, it has allowed Alyssa to embrace the idea that her art isnt meant for everyone and that's completly okay. As long as she enjoys creating her weird little doodles, thats all that matters! She doesnt tend to overthink that much anymore when it comes to her art because, "Mum will always be my #1 fan, and I'm perfectly content with that!"
+                            She chose the name "Inspiredbuthellatired" because some days she can be filled with creative ideas that need to be painted right away. Unfortunately, she tended to  overthink if anyone will even like her art and a brick wall was always hit. Using this alterego, it has allowed Alyssa to embrace the idea that her art isnt meant for everyone and that's completely okay. As long as she enjoys creating her weird little doodles, thats all that matters! She doesnt tend to overthink that much anymore when it comes to her art because, "Mum will always be my #1 fan, and I'm perfectly content with that!"
                         </Typography>
                     </div>
                 </div>
