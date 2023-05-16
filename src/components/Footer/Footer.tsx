@@ -1,4 +1,4 @@
-import { EmailOutlined, Instagram } from "@mui/icons-material";
+import { EmailOutlined, Instagram, Language } from "@mui/icons-material";
 import { Link, SvgIconTypeMap, Theme, Typography } from "@mui/material";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
 import { makeStyles } from "@mui/styles";
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         flexDirection: "column",
         alignItems: "center",
         [theme.breakpoints.up('md')]: {
-            width: "33%",
+            width: "25%",
             alignItems: "flex-start",
             margin: `${theme.typography.pxToRem(16)} ${theme.typography.pxToRem(48)} 0 0`,
         },
@@ -216,6 +216,55 @@ const Footer = () => {
                     })}
                     >
                         Email
+                    </Typography>
+                </Link>
+            </article>
+            <article
+            className={classes.footerContainer}
+            >
+                <Typography
+                variant="h4"
+                sx={(theme) => ({
+                    textTransform: "uppercase",
+                    fontSize: theme.typography.pxToRem(20),
+                })}
+                >
+                    Created and designed by
+                </Typography>
+                <Typography
+                sx={(theme) => ({
+                    margin: `${theme.typography.pxToRem(16)} 0 0`,
+                    textAlign: "center",
+                    [theme.breakpoints.up('md')]: {
+                        textAlign: "left",
+                    }
+                })}
+                >
+                Nigel D'Souza
+                </Typography>
+                <Link
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://www.nigeldsouza.xyz"
+                sx={(theme) => ({
+                    display: "flex",
+                    alignItems: "center",
+                    color: "#000",
+                    textDecoration: "none",
+                    margin: `${theme.typography.pxToRem(8)} 0`,
+                    transition: "color 0.3s",
+                    '&:hover': {
+                        color: "#0000FF"
+                    }
+                })}
+                >
+                    <Language />
+                    <Typography
+                    sx={(theme) => ({
+                        margin: `0 ${theme.typography.pxToRem(8)}`,
+                    })}
+                    >
+                        nigeldsouza.xyz
                     </Typography>
                 </Link>
             </article>
